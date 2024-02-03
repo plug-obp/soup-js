@@ -1,0 +1,12 @@
+{
+  "name": "soup-js",
+  "version": "1.0.0",
+  "description": "Soup Language in JavaScript",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Ciprian TEODOROV",
+  "license": "MIT"
+}
