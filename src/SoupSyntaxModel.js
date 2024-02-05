@@ -1,4 +1,25 @@
+export class Cursor {
+    line;
+    column;
+    constructor(line, column) {
+        this.line = line;
+        this.column = column;
+    }
+}
+export class Position {
+    start;
+    stop;
+    constructor(start, stop) {
+        this.start = start;
+        this.stop = stop;
+    }
+}
+const emptyPosition = new Position(new Cursor(0, 0), new Cursor(0, 0));
 class SyntaxTreeElement {
+    position;
+    constructor(position) {
+        this.position = position;
+    }
     accept(visitor, input) {
         return visitor.visitSyntaxTreeElement(this, input);
     }
@@ -13,8 +34,8 @@ class Expression extends SyntaxTreeElement {
 }
 class Literal extends Expression {
     value;
-    constructor(value) {
-        super();
+    constructor(value, position=emptyPosition) {
+        super(position);
         this.value = value;
     }
     accept(visitor, input) {
@@ -37,13 +58,13 @@ export class NumberLiteral extends Literal {
 
 export class Reference extends Expression {
     name;
-    expression = null;
-    constructor(name) {
-        super();
+    declaration = null;
+    constructor(name, position=emptyPosition) {
+        super(position);
         this.name = name;
     }
-    setExpression(expression) {
-        this.expression = expression;
+    setDeclaration(declaration) {
+        this.declaration = declaration;
     }
     accept(visitor, input) {
         return visitor.visitReference(this, input);
@@ -52,15 +73,15 @@ export class Reference extends Expression {
         return this === other 
             || (other instanceof Reference 
                 && this.name === other.name 
-                && this.expression.equals(other.expression));
+                && this.declaration.equals(other.declaration));
     }
 }
 
 class UnaryExpression extends Expression {
     operator;
     operand;
-    constructor(operator, operand) {
-        super();
+    constructor(operator, operand, position=emptyPosition) {
+        super(position);
         this.operator = operator;
         this.operand = operand;
     }
@@ -100,8 +121,8 @@ class BinaryExpression extends Expression {
     operator;
     left;
     right;
-    constructor(operator, left, right) {
-        super();
+    constructor(operator, left, right, position=emptyPosition) {
+        super(position);
         this.operator = operator;
         this.left = left;
         this.right = right;
@@ -226,8 +247,8 @@ export class ConditionalExpression extends Expression {
     condition;
     thenExpression;
     elseExpression;
-    constructor(condition, thenExpression, elseExpression) {
-        super();
+    constructor(condition, thenExpression, elseExpression, position=emptyPosition) {
+        super(position);
         this.condition = condition;
         this.thenExpression = thenExpression;
         this.elseExpression = elseExpression;
@@ -257,8 +278,8 @@ export class Skip extends Statement {
 export class Assignment extends Statement {
     target;
     expression;
-    constructor(target, expression) {
-        super();
+    constructor(target, expression, position=emptyPosition) {
+        super(position);
         this.target = target;
         this.expression = expression;
     }
@@ -276,8 +297,8 @@ export class IfStatement extends Statement {
     condition;
     thenBlock;
     elseBlock;
-    constructor(condition, thenBlock, elseBlock) {
-        super();
+    constructor(condition, thenBlock, elseBlock, position=emptyPosition) {
+        super(position);
         this.condition = condition;
         this.thenBlock = thenBlock;
         this.elseBlock = elseBlock;
@@ -296,8 +317,8 @@ export class IfStatement extends Statement {
 export class Sequence extends Statement {
     left;
     right;
-    constructor(left, right) {
-        super();
+    constructor(left, right, position=emptyPosition) {
+        super(position);
         this.left = left;
         this.right = right;
     }
@@ -315,13 +336,13 @@ export class Sequence extends Statement {
 export class AnonymousPiece extends SyntaxTreeElement {
     guard;
     effect;
-    constructor(guard, effect) {
-        super();
+    constructor(guard, effect, position=emptyPosition) {
+        super(position);
         this.guard = guard;
         this.effect = effect;
     }
     accept(visitor, input) {
-        return visitor.AnonymousPiece(this, input);
+        return visitor.visitAnonymousPiece(this, input);
     }
     equals(other) {
         return this === other 
@@ -332,12 +353,12 @@ export class AnonymousPiece extends SyntaxTreeElement {
 }
 export class NamedPiece extends AnonymousPiece {
     name;
-    constructor(name, guard, effect) {
-        super(guard, effect);
+    constructor(name, guard, effect, position=emptyPosition) {
+        super(guard, effect, position);
         this.name = name;
     }
     accept(visitor, input) {
-        return visitor.NamedPiece(this, input);
+        return visitor.visitNamedPiece(this, input);
     }
     equals(other) {
         return this === other 
@@ -351,8 +372,8 @@ export class NamedPiece extends AnonymousPiece {
 export class VariableDeclaration extends SyntaxTreeElement {
     name;
     initialValue;
-    constructor(name, initialValue) {
-        super();
+    constructor(name, initialValue, position=emptyPosition) {
+        super(position);
         this.name = name;
         this.initialValue = initialValue;
     }
@@ -370,8 +391,8 @@ export class VariableDeclaration extends SyntaxTreeElement {
 export class Soup extends SyntaxTreeElement {
     variables;
     pieces;
-    constructor(variables, pieces) {
-        super();
+    constructor(variables, pieces, position=emptyPosition) {
+        super(position);
         this.variables = variables;
         this.pieces = pieces;
     }
@@ -389,8 +410,8 @@ export class Soup extends SyntaxTreeElement {
 //Only for step evaluation
 export class PrimedReference extends Expression {
     name;
-    constructor(name) {
-        super();
+    constructor(name, position=emptyPosition) {
+        super(position);
         this.name = name;
     }
     accept(visitor, input) {
@@ -402,8 +423,8 @@ export class PrimedReference extends Expression {
 }
 export class NamedPieceReference extends Expression {
     name;
-    constructor(name) {
-        super();
+    constructor(name, position=emptyPosition) {
+        super(position);
         this.name = name;
     }
     accept(visitor, input) {
@@ -416,8 +437,8 @@ export class NamedPieceReference extends Expression {
 
 export class EnabledExpression extends Expression {
     expression;
-    constructor(expression) {
-        super();
+    constructor(expression, position=emptyPosition) {
+        super(position);
         this.expression = expression;
     }
     accept(visitor, input) {

@@ -1,7 +1,7 @@
 import antlr4 from 'antlr4';
 import SoupLexer from '../generated/grammar/SoupLexer.js';
 import SoupParser from '../generated/grammar/SoupParser.js';
-import {SoupSyntaxBuilder, SoupLinker} from './SoupSyntaxBuilder.js';
+import {SoupSyntaxBuilder, SoupLinker, Environment} from './SoupSyntaxBuilder.js';
 
 function antlr4Parser(input) {
     const chars = new antlr4.InputStream(input);
@@ -45,6 +45,6 @@ export function readSoup(input) {
 }
 
 export function link(tree, context = new Map()) {
-	tree.accept(new SoupLinker(), new Context(context));
+	tree.accept(new SoupLinker(), new Environment());
 	tree;
 }

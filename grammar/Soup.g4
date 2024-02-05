@@ -4,8 +4,8 @@ soup: variables? (PIPE? piece (PIPE piece)*)?;
 
 variables: VAR assign (SEMICOLON assign)* SEMICOLON?;
 piece
-    : IDENTIFIER definedAs guard? effect?     #NamedPiece
-    | guard? effect                     #AnonymousPiece
+    : IDENTIFIER definedAs guard? effect?       #NamedPiece
+    | guard? effect                             #AnonymousPiece
     ;
 definedAs: (COLON | TEQ);
 guard: LSQUARE expression RSQUARE;
