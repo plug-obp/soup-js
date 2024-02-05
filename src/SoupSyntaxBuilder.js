@@ -102,7 +102,7 @@ export class SoupSyntaxBuilder extends SoupListener {
             case SoupParser.GT:
                 binaryExpression = new stx.GreaterThan(operator, left, right);
                 break;
-            case SoupParser.EQ:
+            case SoupParser.BEQ:
                 binaryExpression = new stx.Equal(operator, left, right);
                 break;
             case SoupParser.NEQ:

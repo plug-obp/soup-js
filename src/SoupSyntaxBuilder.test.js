@@ -41,7 +41,7 @@ test('binary', () => {
   expect(readExpression('23 <= 42')).toEqual(new stx.LessThanOrEqual('<=', new stx.NumberLiteral(23), new stx.NumberLiteral(42)));
   expect(readExpression('23 > 42')).toEqual(new stx.GreaterThan('>', new stx.NumberLiteral(23), new stx.NumberLiteral(42)));
   expect(readExpression('23 >= 42')).toEqual(new stx.GreaterThanOrEqual('>=', new stx.NumberLiteral(23), new stx.NumberLiteral(42)));
-  expect(readExpression('23 = 42')).toEqual(new stx.Equal('=', new stx.NumberLiteral(23), new stx.NumberLiteral(42)));
+  expect(readExpression('23 == 42')).toEqual(new stx.Equal('==', new stx.NumberLiteral(23), new stx.NumberLiteral(42)));
   expect(readExpression('23 != 42')).toEqual(new stx.NotEqual('!=', new stx.NumberLiteral(23), new stx.NumberLiteral(42)));
 });
 

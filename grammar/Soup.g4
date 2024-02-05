@@ -19,7 +19,7 @@ expression
     | expression operator=(MULT | DIV | MOD) expression         #BinaryExpression
     | expression operator=(PLUS | MINUS) expression             #BinaryExpression
     | expression operator=(LE | LT | GE | GT) expression        #BinaryExpression
-    | expression operator=(EQ | NEQ) expression                 #BinaryExpression
+    | expression operator=(BEQ | NEQ) expression                #BinaryExpression
     | expression operator=AND expression                        #BinaryExpression
     | expression operator=OR expression                         #BinaryExpression
     | <assoc=right> expression '?' expression ':' expression    #ConditionalExp
@@ -67,6 +67,7 @@ LE : '<=' | '≤';
 LT : '<';
 GE : '>=' | '≥';
 GT : '>';
+BEQ : '==';
 EQ : '=';
 NEQ : '!=' | '≠';
 IFF: '<=>' | '⟺';
