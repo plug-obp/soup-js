@@ -1,9 +1,13 @@
 grammar Soup;
 
-soup: variables (PIPE? piece (PIPE piece)*)?;
+soup: variables? (PIPE? piece (PIPE piece)*)?;
 
 variables: VAR assign (SEMICOLON assign)* SEMICOLON?;
-piece: IDENTIFIER COLON guard? effect?;
+piece
+    : IDENTIFIER definedAs guard? effect?     #NamedPiece
+    | guard? effect                     #AnonymousPiece
+    ;
+definedAs: (COLON | TEQ);
 guard: LSQUARE expression RSQUARE;
 effect: DIV statement SEMICOLON?;
 
@@ -72,6 +76,7 @@ COMMA: ',';
 DOT: '.';
 SEMICOLON : ';';
 COLON:  ':';
+TEQ: '≜';
 LPAREN : '(';
 RPAREN : ')';
 LSQUARE : '[';

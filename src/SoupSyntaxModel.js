@@ -114,7 +114,7 @@ class BinaryExpression extends Expression {
     }
 }
 
-class Multiplication extends BinaryExpression {
+export class Multiplication extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitMultiplication(this, input);
     }
@@ -122,7 +122,7 @@ class Multiplication extends BinaryExpression {
         return this === other || (other instanceof Multiplication && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Division extends BinaryExpression {
+export class Division extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitDivision(this, input);
     }
@@ -130,7 +130,7 @@ class Division extends BinaryExpression {
         return this === other || (other instanceof Division && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Modulus extends BinaryExpression {
+export class Modulus extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitModulus(this, input);
     }
@@ -138,7 +138,7 @@ class Modulus extends BinaryExpression {
         return this === other || (other instanceof Modulus && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Addition extends BinaryExpression {
+export class Addition extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitAddition(this, input);
     }
@@ -146,7 +146,7 @@ class Addition extends BinaryExpression {
         return this === other || (other instanceof Addition && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Subtraction extends BinaryExpression {
+export class Subtraction extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitSubtraction(this, input);
     }
@@ -154,7 +154,7 @@ class Subtraction extends BinaryExpression {
         return this === other || (other instanceof Subtraction && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class LessThan extends BinaryExpression {
+export class LessThan extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitLessThan(this, input);
     }
@@ -162,7 +162,7 @@ class LessThan extends BinaryExpression {
         return this === other || (other instanceof LessThan && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class LessThanOrEqual extends BinaryExpression {
+export class LessThanOrEqual extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitLessThanOrEqual(this, input);
     }
@@ -170,7 +170,7 @@ class LessThanOrEqual extends BinaryExpression {
         return this === other || (other instanceof LessThanOrEqual && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class GreaterThan extends BinaryExpression {
+export class GreaterThan extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitGreaterThan(this, input);
     }
@@ -178,7 +178,7 @@ class GreaterThan extends BinaryExpression {
         return this === other || (other instanceof GreaterThan && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class GreaterThanOrEqual extends BinaryExpression {
+export class GreaterThanOrEqual extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitGreaterThanOrEqual(this, input);
     }
@@ -186,7 +186,7 @@ class GreaterThanOrEqual extends BinaryExpression {
         return this === other || (other instanceof GreaterThanOrEqual && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Equal extends BinaryExpression {
+export class Equal extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitEqual(this, input);
     }
@@ -194,7 +194,7 @@ class Equal extends BinaryExpression {
         return this === other || (other instanceof Equal && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class NotEqual extends BinaryExpression {
+export class NotEqual extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitNotEqual(this, input);
     }
@@ -202,7 +202,7 @@ class NotEqual extends BinaryExpression {
         return this === other || (other instanceof NotEqual && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Conjuction extends BinaryExpression {
+export class Conjuction extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitConjuction(this, input);
     }
@@ -210,7 +210,7 @@ class Conjuction extends BinaryExpression {
         return this === other || (other instanceof Conjuction && this.left.equals(other.left) && this.right.equals(other.right));
     }
 }
-class Disjunction extends BinaryExpression {
+export class Disjunction extends BinaryExpression {
     accept(visitor, input) {
         return visitor.visitDisjunction(this, input);
     }
@@ -222,7 +222,7 @@ class Disjunction extends BinaryExpression {
     }
 }
 
-class ConditionalExpression extends Expression {
+export class ConditionalExpression extends Expression {
     condition;
     thenExpression;
     elseExpression;
@@ -249,12 +249,17 @@ class Statement extends SyntaxTreeElement {
         return visitor.visitStatement(this, input);
     }
 }
-class Assignment extends Statement {
-    name;
+export class Skip extends Statement {
+    accept(visitor, input) {
+        return visitor.visitSkip(this, input);
+    }
+}
+export class Assignment extends Statement {
+    target;
     expression;
-    constructor(name, expression) {
+    constructor(target, expression) {
         super();
-        this.name = name;
+        this.target = target;
         this.expression = expression;
     }
     accept(visitor, input) {
@@ -263,11 +268,11 @@ class Assignment extends Statement {
     equals(other) {
         return this === other
             || (    other instanceof Assignment
-                && this.name === other.name 
+                && this.target === other.target 
                 && this.expression.equals(other.expression));
     }
 }
-class IfStatement extends Statement {
+export class IfStatement extends Statement {
     condition;
     thenBlock;
     elseBlock;
@@ -288,7 +293,7 @@ class IfStatement extends Statement {
                 && this.elseBlock.equals(other.elseBlock));
     }
 }
-class Sequence extends Statement {
+export class Sequence extends Statement {
     left;
     right;
     constructor(left, right) {
@@ -307,29 +312,62 @@ class Sequence extends Statement {
     }
 }
 
-class Piece extends SyntaxTreeElement {
-    name;
+export class AnonymousPiece extends SyntaxTreeElement {
     guard;
     effect;
-    constructor(name, guard, effect) {
+    constructor(guard, effect) {
         super();
-        this.name = name;
         this.guard = guard;
         this.effect = effect;
     }
     accept(visitor, input) {
-        return visitor.visitPiece(this, input);
+        return visitor.AnonymousPiece(this, input);
     }
     equals(other) {
         return this === other 
-            || (    other instanceof Piece
+            || (    other instanceof AnonymousPiece
+                && this.guard.equals(other.guard) 
+                && this.effect.equals(other.effect));
+    }
+}
+export class NamedPiece extends AnonymousPiece {
+    name;
+    constructor(name, guard, effect) {
+        super(guard, effect);
+        this.name = name;
+    }
+    accept(visitor, input) {
+        return visitor.NamedPiece(this, input);
+    }
+    equals(other) {
+        return this === other 
+            || (    other instanceof NamedPiece
                 && this.name === other.name 
                 && this.guard.equals(other.guard) 
                 && this.effect.equals(other.effect));
     }
 }
 
-class Soup extends SyntaxTreeElement {
+export class VariableDeclaration extends SyntaxTreeElement {
+    name;
+    initialValue;
+    constructor(name, initialValue) {
+        super();
+        this.name = name;
+        this.initialValue = initialValue;
+    }
+    accept(visitor, input) {
+        return visitor.visitVariableDeclaration(this, input);
+    }
+    equals(other) {
+        return this === other 
+            || (    other instanceof VariableDeclaration
+                && this.name === other.name 
+                && this.initialValue === other.initialValue);
+    }
+}
+
+export class Soup extends SyntaxTreeElement {
     variables;
     pieces;
     constructor(variables, pieces) {
@@ -425,6 +463,9 @@ export class Visitor {
     visitStatement(element, input) {
         this.visitSyntaxTreeElement(element, input);
     }
+    visitSkip(element, input) {
+        this.visitStatement(element, input);
+    }
     visitAssignment(element, input) {
         this.visitStatement(element, input);
     }
@@ -434,8 +475,11 @@ export class Visitor {
     visitSequence(element, input) {
         this.visitStatement(element, input);
     }
-    visitPiece(element, input) {
+    visitAnonymousPiece(element, input) {
         this.visitSyntaxTreeElement(element, input);
+    }
+    visitNamedPiece(element, input) {
+        this.visitAnonymousPiece(element, input);
     }
     visitSoup(element, input) {
         this.visitSyntaxTreeElement(element, input);

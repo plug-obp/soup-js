@@ -23,6 +23,20 @@ export function readExpression(input) {
 	return buildSyntaxModel(tree);
 }
 
+export function readStatement(input) {
+	const parser = antlr4Parser(input);
+	const tree = parser.statement();
+
+	return buildSyntaxModel(tree);
+}
+
+export function readPiece(input) {
+	const parser = antlr4Parser(input);
+	const tree = parser.piece();
+
+	return buildSyntaxModel(tree);
+}
+
 export function readSoup(input) {
 	const parser = antlr4Parser(input);
 	const tree = parser.soup();
