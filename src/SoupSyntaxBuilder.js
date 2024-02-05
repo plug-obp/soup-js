@@ -199,6 +199,16 @@ export class SoupSyntaxBuilder extends SoupListener {
         }
         this.setValue(ctx, new stx.Soup(variables != null ? variables : [], pieces));
     }
+
+    exitPrimedReferenceExp(ctx) {
+        this.setValue(ctx, new stx.PrimedReference(ctx.IDENTIFIER().getText()));
+    }
+    exitNamedPieceReferenceExp(ctx) {
+        this.setValue(ctx, new stx.NamedPieceReference(ctx.IDENTIFIER().getText()));
+    }
+    exitEnabledExp(ctx) {
+        this.setValue(ctx, new stx.EnabledExpression(this.getValue(ctx.expression())));
+    }
 }
 
 export class Context {

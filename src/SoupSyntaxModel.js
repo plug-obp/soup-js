@@ -386,6 +386,48 @@ export class Soup extends SyntaxTreeElement {
     }
 }
 
+//Only for step evaluation
+export class PrimedReference extends Expression {
+    name;
+    constructor(name) {
+        super();
+        this.name = name;
+    }
+    accept(visitor, input) {
+        return visitor.visitPrimedReference(this, input);
+    }
+    equals(other) {
+        return this === other || (other instanceof PrimedReference && this.name === other.name);
+    }
+}
+export class NamedPieceReference extends Expression {
+    name;
+    constructor(name) {
+        super();
+        this.name = name;
+    }
+    accept(visitor, input) {
+        return visitor.visitNamedPieceReference(this, input);
+    }
+    equals(other) {
+        return this === other || (other instanceof NamedPieceReference && this.name === other.name);
+    }
+}
+
+export class EnabledExpression extends Expression {
+    expression;
+    constructor(expression) {
+        super();
+        this.expression = expression;
+    }
+    accept(visitor, input) {
+        return visitor.visitEnabledExpression(this, input);
+    }
+    equals(other) {
+        return this === other || (other instanceof EnabledExpression && this.expression.equals(other.expression));
+    }
+}
+
 export class Visitor {
     visitSyntaxTreeElement(element, input) { }
     visitExpression(element, input) {
@@ -483,5 +525,14 @@ export class Visitor {
     }
     visitSoup(element, input) {
         this.visitSyntaxTreeElement(element, input);
+    }
+    visitPrimedReference(element, input) {
+        this.visitExpression(element, input);
+    }
+    visitNamedPieceReference(element, input) {
+        this.visitExpression(element, input);
+    }
+    visitEnabledExpression(element, input) {
+        this.visitExpression(element, input);
     }
 }

@@ -15,6 +15,9 @@ expression
     : literal                                                   #LiteralExp
     | IDENTIFIER                                                #ReferenceExp
     | LPAREN expression RPAREN                                  #ParenExp
+    | IDENTIFIER PRIME                                          #PrimedReferenceExp //this is only for step evaluation
+    | <assoc=right> 'p:' IDENTIFIER                             #NamedPieceReferenceExp //this is only for step evaluation
+    | <assoc=right> ENABLED expression                          #EnabledExp //this is only for dianosis evaluation
     | <assoc=right> operator=(NOT | PLUS | MINUS) expression    #UnaryExp
     | expression operator=(MULT | DIV | MOD) expression         #BinaryExpression
     | expression operator=(PLUS | MINUS) expression             #BinaryExpression
@@ -45,6 +48,7 @@ IF: 'if';
 THEN: 'then';
 ELSE: 'else';
 VAR: 'var';
+ENABLED: 'enabled';
 
 IDENTIFIER : [a-zA-Z][a-zA-Z_0-9]*;
 NUMBER: [+-]? NATURAL (DOT NATURAL)?;
@@ -82,6 +86,7 @@ LPAREN : '(';
 RPAREN : ')';
 LSQUARE : '[';
 RSQUARE : ']';
+PRIME: '\'';
 
 LINE_COMMENT : '//' .*? '\n' -> skip ;
 COMMENT : '/*' .*? '*/' -> skip ;

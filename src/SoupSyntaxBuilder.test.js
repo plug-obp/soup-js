@@ -154,3 +154,18 @@ test('soup no pieces', () => {
       new stx.VariableDeclaration('x', new stx.NumberLiteral(2))
     ], []));
 });
+
+test('primed reference', () => {
+  expect(readExpression("x'")).toEqual(new stx.PrimedReference('x'));
+});
+test('named piece reference', () => {
+  expect(readExpression("p:toto")).toEqual(new stx.NamedPieceReference('toto'));
+});
+test('enabled', () => {
+  expect(readExpression("enabled(x==23)")).toEqual(
+    new stx.EnabledExpression(
+      new stx.Equal(
+        '==',
+        new stx.Reference('x'), 
+        new stx.NumberLiteral(23))));
+});
