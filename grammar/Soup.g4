@@ -22,7 +22,7 @@ expression
     ;
 
 literal
-    : NATURAL
+    : NUMBER
     | TRUE
     | FALSE
     ;
@@ -43,6 +43,7 @@ ELSE: 'else';
 VAR: 'var';
 
 IDENTIFIER : [a-zA-Z][a-zA-Z_0-9]*;
+NUMBER: [+-]? NATURAL (DOT NATURAL)?;
 NATURAL: [0-9]+;
 
 NOT: '!';
@@ -67,7 +68,8 @@ NEQ : '!=' | '≠';
 IFF: '<=>' | '⟺';
 
 PIPE: '|';
-COMMA : ',';
+COMMA: ',';
+DOT: '.';
 SEMICOLON : ';';
 COLON:  ':';
 LPAREN : '(';

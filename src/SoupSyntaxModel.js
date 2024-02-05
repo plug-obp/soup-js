@@ -24,18 +24,18 @@ class Literal extends Expression {
         return this === other || (other instanceof Literal && this.value === other.value);
     }
 }
-class BooleanLiteral extends Literal {
+export class BooleanLiteral extends Literal {
     accept(visitor, input) {
         return visitor.visitBooleanLiteral(this, input);
     }
 }
-class NumberLiteral extends Literal {
+export class NumberLiteral extends Literal {
     accept(visitor, input) {
         return visitor.visitNumberLiteral(this, input);
     }
 }
 
-class Reference extends Expression {
+export class Reference extends Expression {
     name;
     expression = null;
     constructor(name) {
@@ -49,7 +49,10 @@ class Reference extends Expression {
         return visitor.visitReference(this, input);
     }
     equals(other) {
-        return this === other || (other instanceof Reference && this.name === other.name && this.expression.equals(other.expression);
+        return this === other 
+            || (other instanceof Reference 
+                && this.name === other.name 
+                && this.expression.equals(other.expression));
     }
 }
 
@@ -68,7 +71,7 @@ class UnaryExpression extends Expression {
         return this === other || (other instanceof UnaryExpression && this.operand.equals(other.operand));
     }
 }
-class NotExpression extends UnaryExpression {
+export class NotExpression extends UnaryExpression {
     accept(visitor, input) {
         return visitor.visitNotExpression(this, input);
     }
@@ -76,7 +79,7 @@ class NotExpression extends UnaryExpression {
         return this === other || (other instanceof NotExpression && this.operand.equals(other.operand));
     }
 }
-class PlusExpression extends UnaryExpression {
+export class PlusExpression extends UnaryExpression {
     accept(visitor, input) {
         return visitor.visitPlusExpression(this, input);
     }
@@ -84,7 +87,7 @@ class PlusExpression extends UnaryExpression {
         return this === other || (other instanceof PlusExpression && this.operand.equals(other.operand));
     }
 }
-class MinusExpression extends UnaryExpression {
+export class MinusExpression extends UnaryExpression {
     accept(visitor, input) {
         return visitor.visitMinusExpression(this, input);
     }
