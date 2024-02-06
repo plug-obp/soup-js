@@ -24,6 +24,7 @@ This is a simple language based on piecewise relations.
   - [x] primed reference `IDENTIFIER'`
   - [x] NamedPieceReference `p:IDENTIFIER`
   - [x] Enabled `enabled expression`
+  - [x] tests
 
 ## Missing things
 
