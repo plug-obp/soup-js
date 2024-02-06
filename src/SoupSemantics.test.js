@@ -395,3 +395,17 @@ test('evaluateStepString enabled expression', () => {
     expect(evaluateStepString("enabled x' == x + 19", step)).toBe(true);
     expect(evaluateStepString("enabled false", step)).toBe(false);
 });
+
+test('environment hashcode', async () => {
+    const env0 = new Environment(new Map([['x', 23], ['y', 42]]));
+    const env1 = new Environment(new Map([['x', 23], ['y', 42]]));
+    const env2 = new Environment(new Map([['y', 42], ['x', 23]]));
+    const env3 = new Environment(new Map([['x', 42], ['y', 42]]));
+    const he0 = await env0.hashCode();
+    const he1 = await env1.hashCode();
+    const he2 = await env2.hashCode();
+    const he3 = await env3.hashCode();
+    expect(he0).toBe(he1);
+    expect(he0).toBe(he2);
+    expect(he0).not.toBe(he3);
+});

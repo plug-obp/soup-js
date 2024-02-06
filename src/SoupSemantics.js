@@ -1,5 +1,6 @@
 import { readExpression } from "./SoupReader";
 import { Reference, Visitor } from "./SoupSyntaxModel";
+import { createXXHash32 } from 'hash-wasm';
 
 //I do not box the values. The booleans are native booleans, the numbers are native numbers.
 export class Environment {
@@ -26,6 +27,34 @@ export class Environment {
     }
     clone() {
         return new Environment(new Map(this.scope));
+    }
+
+    async hashCode() {
+        const hasher = await createXXHash32();
+        //The entries are not ordered, so I sort them.
+        const entries = Array.from(this.scope.entries()).sort((a, b) => a[0] < b[0]? -1 : a[0] > b[0] ? 1 : 0);
+        for (const [key, value] of entries) {
+            hasher.update(key);
+            hasher.update(value.toString());
+        }
+        return hasher.digest();
+    }
+
+    equals(other) {
+        if (other === this) { return true; }
+        if (other instanceof Environment === false) { return false; }
+        if (this.scope.size !== other.scope.size) {
+            return false;
+        }
+        for (const [key, value] of this.scope) {
+            if (other.scope.has(key) === false) {
+                return false;
+            }
+            if (other.scope.get(key) !== value) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 
