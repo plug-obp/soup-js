@@ -332,7 +332,7 @@ test('soup execute safe', () => {
     const semantics = new SoupSemantics(soup);
     const [env] = semantics.initial();
     const [action] = semantics.actions(env);
-    const [newEnv] = semantics.executeSafe(action, env);
+    const [newEnv] = semantics.executePure(action, env);
     expect(newEnv.lookup('x')).toBe(42);
     expect(newEnv).not.toBe(env);
     expect(env.lookup('x')).toBe(23);

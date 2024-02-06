@@ -239,7 +239,7 @@ export class SoupSemantics {
         return [piece.effect.accept(this.statementInterpreter, environment)];
     }
 
-    executeSafe(piece, environment) {
+    executePure(piece, environment) {
         const newEnvironment = environment.clone();
         return [piece.effect.accept(this.statementInterpreter, newEnvironment)];
     }
