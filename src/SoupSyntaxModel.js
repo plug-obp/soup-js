@@ -295,13 +295,13 @@ export class Assignment extends Statement {
 }
 export class IfStatement extends Statement {
     condition;
-    thenBlock;
-    elseBlock;
-    constructor(condition, thenBlock, elseBlock, position=emptyPosition) {
+    thenStatement;
+    elseStatement;
+    constructor(condition, thenStatement, elseStatement, position=emptyPosition) {
         super(position);
         this.condition = condition;
-        this.thenBlock = thenBlock;
-        this.elseBlock = elseBlock;
+        this.thenStatement = thenStatement;
+        this.elseStatement = elseStatement;
     }
     accept(visitor, input) {
         return visitor.visitIfStatement(this, input);
@@ -310,8 +310,8 @@ export class IfStatement extends Statement {
         return this === other 
             || (    other instanceof IfStatement
                 && this.condition.equals(other.condition) 
-                && this.thenBlock.equals(other.thenBlock) 
-                && this.elseBlock.equals(other.elseBlock));
+                && this.thenStatement.equals(other.thenStatement) 
+                && this.elseStatement.equals(other.elseStatement));
     }
 }
 export class Sequence extends Statement {

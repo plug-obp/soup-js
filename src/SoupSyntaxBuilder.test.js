@@ -1,5 +1,4 @@
-import { link, readExpression, readPiece, readSoup, readStatement } from './SoupReader'; 
-import { SoupSyntaxBuilder } from './SoupSyntaxBuilder';
+import { link, readExpression, readPiece, readSoup, readStatement } from './SoupReader';
 import * as stx from './SoupSyntaxModel.js';
 import {expect, jest, test} from '@jest/globals';
 
@@ -146,6 +145,20 @@ test('soup', () => {
     ], expect.anything()));
 });
 
+test('soup one piece no bool guard', () => {
+  const soup = readSoup('var x = 23; p1: [ x ] / x = 42');
+  expect(soup).toEqual(
+    new stx.Soup([
+      new stx.VariableDeclaration('x', number23, expect.anything())
+    ], [
+      new stx.NamedPiece(
+        'p1',
+        rX,
+        new stx.Assignment(rX, number42, expect.anything()),
+        expect.anything()
+      )
+    ], expect.anything()));
+});
 
 test('soup no vars', () => {
   expect(readSoup('p1: [ p ] / x=23 | p2: / x=23')).toEqual(

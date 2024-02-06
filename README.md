@@ -14,12 +14,12 @@ This is a simple language based on piecewise relations.
   - [x] tests for Antlr4 to Syntax Model
 - [x] Linker, to link the references in the tree
 - [x] Expression semantics, visitor expression -> value
-  - [ ] tests
-  - [ ] add runtime type checks
+  - [x] tests
+  - [x] add runtime type checks
 - [x] Statement semantics
-  - [ ] tests
+  - [x] tests
 - [x] Soup semantics
-  - [ ] tests
+  - [x] tests
 - [x] Add step evaluation
   - [x] primed reference `IDENTIFIER'`
   - [x] NamedPieceReference `p:IDENTIFIER`

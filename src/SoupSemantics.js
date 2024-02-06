@@ -1,6 +1,7 @@
 import { readExpression } from "./SoupReader";
-import { Visitor } from "./SoupSyntaxModel";
+import { Reference, Visitor } from "./SoupSyntaxModel";
 
+//I do not box the values. The booleans are native booleans, the numbers are native numbers.
 export class Environment {
     constructor(scope = new Map()) {
         this.scope = scope;
@@ -12,6 +13,9 @@ export class Environment {
         this.scope.set(name, value);
     }
     lookup(name) {
+        if (this.scope.has(name) === false) {
+            throw new Error(`The variable ${name} is not defined.`);
+        }
         return this.scope.get(name);
     }
     update(name, value) {
@@ -20,9 +24,21 @@ export class Environment {
         }
         this.scope.set(name, value);
     }
+    clone() {
+        return new Environment(new Map(this.scope));
+    }
 }
 
-//I do not box the values. The booleans are native booleans, the numbers are native numbers.
+function ensureBoolean(operator, value) {
+    if (typeof value !== 'boolean') {
+        throw new Error(`${operator} expects a boolean, got '${value}'.`);
+    }
+}
+function ensureNumber(operator, value) {
+    if (typeof value !== 'number') {
+        throw new Error(`${operator} expects a number, got '${value}'.`);
+    }
+}
 
 /*
     The Expression interpreter maps the syntax tree to javascript values.
@@ -43,55 +59,119 @@ export class ExpressionInterpreter extends Visitor {
         return env.lookup(node.name);
     }
     visitNotExpression(node, env) {
-        return !node.operand.accept(this, env);
+        const operand = node.operand.accept(this, env);
+        ensureBoolean('Unary !', operand);
+        return !operand;
     }
     visitMinusExpression(node, env) {
-        return -node.operand.accept(this, env);
+        const operand = node.operand.accept(this, env);
+        ensureNumber('Unary -', operand);
+        return -operand;
     }
     visitPlusExpression(node, env) {
-        return node.operand.accept(this, env);
+        const operand = node.operand.accept(this, env);
+        ensureNumber('Unary +', operand);
+        return operand;
     }
     visitMultiplication(node, env) {
-        return node.left.accept(this, env) * node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('*', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('*', right);
+        return left * right;
     }
     visitDivision(node, env) {
-        return node.left.accept(this, env) / node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('/', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('/', right);
+        if (right === 0) {
+            throw new Error('Division by zero.');
+        }
+        return left / right;
     }
     visitModulus(node, env) {
-        return node.left.accept(this, env) % node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('%', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('%', right);
+        return left % right;
     }
     visitAddition(node, env) {
-        return node.left.accept(this, env) + node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('+', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('+', right);
+        return left + right;
     }
     visitSubtraction(node, env) {
-        return node.left.accept(this, env) - node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('-', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('-', right);
+        return left - right;
     }
     visitLessThan(node, env) {
-        return node.left.accept(this, env) < node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('<', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('<', right);
+        return left < right;
     }
     visitLessThanOrEqual(node, env) {
-        return node.left.accept(this, env) <= node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('<=', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('<=', right);
+        return left <= right;
     }
     visitGreaterThan(node, env) {
-        return node.left.accept(this, env) > node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('>', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('>', right);
+        return left > right;
     }
     visitGreaterThanOrEqual(node, env) {
-        return node.left.accept(this, env) >= node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureNumber('>=', left);
+        const right = node.right.accept(this, env);
+        ensureNumber('>=', right);
+        return left >= right;
     }
     visitEqual(node, env) {
-        return node.left.accept(this, env) === node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        const right = node.right.accept(this, env);
+        return left === right;
     }
     visitNotEqual(node, env) {
-        return node.left.accept(this, env) !== node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        const right = node.right.accept(this, env);
+        return left !== right;
     }
     visitConjuction(node, env) {
-        return node.left.accept(this, env) && node.right.accept(this, env);
+        const left = node.left.accept(this, env);
+        ensureBoolean('&&', left);
+        const right = node.right.accept(this, env);
+        ensureBoolean('&&', right);
+        return left && right;
     }
-    visitDisjunction(node, env) {     
-        return node.left.accept(this, env) || node.right.accept(this, env);
+    visitDisjunction(node, env) {
+        const left = node.left.accept(this, env);
+        ensureBoolean('||', left);
+        const right = node.right.accept(this, env);
+        ensureBoolean('||', right);
+        return left || right;
     }
     visitConditionalExpression(node, env) {
-        return node.condition.accept(this, env) ? node.trueExpression.accept(this, env) : node.falseExpression.accept(this, env);
+        const condition = node.condition.accept(this, env);
+        if (typeof condition !== 'boolean') {
+            throw new Error(`The conditional expressions ?: expects a boolean condition, got '${condition}'.`);
+        }
+        if (condition === true) {
+            return node.thenExpression.accept(this, env);
+        }
+        return node.elseExpression.accept(this, env);
     }
 }
 
@@ -108,18 +188,23 @@ export class StatementInterpreter extends Visitor {
         return env;
     }
     visitAssignment(node, env) {
+        if (!(node.target instanceof Reference)) {
+            throw new Error(`The left side of an assignment must be a variable, got ${node.target}.`);
+        }
         const value = node.expression.accept(this.expressionInterpreter, env);
-        env.update(node.name, value);
+        env.update(node.target.name, value);
         return env;
     }
     visitIfStatement(node, env) {
-        if (node.condition.accept(this.expressionInterpreter, env)) {
-            return node.trueStatement.accept(this, env);
+        const condition = node.condition.accept(this.expressionInterpreter, env);
+        ensureBoolean('If condition', condition);
+        if (condition === true) {
+            return node.thenStatement.accept(this, env);
         }
-        return node.falseStatement.accept(this, env);
+        return node.elseStatement.accept(this, env);
     }
     visitSequence(node, env) {
-        return node.second.accept(this, node.first.accept(this, env));
+        return node.right.accept(this, node.left.accept(this, env));
     }
 }
 
@@ -138,23 +223,32 @@ export class SoupSemantics {
     initial() {
         const environment = new Environment();
         for (const variable of this.soup.variables) {
-            environment.define(variable.name, variable.expression.accept(this.expressionInterpreter, environment));
+            environment.define(variable.name, variable.initialValue.accept(this.expressionInterpreter, environment));
         }
         return [environment];
     }
-    actions(configuration) {
-        return this.soup.pieces.filter(piece => 
-            piece.guard.accept(this.expressionInterpreter, configuration) === true);
+    actions(environment) {
+        return this.soup.pieces.filter(piece => {
+            const guard = piece.guard.accept(this.expressionInterpreter, environment);
+            ensureBoolean('Piece guard', guard);
+            return guard;
+        });
     }
-    execute(action, configuration) {
-        return [action.statement.accept(this.statementInterpreter, configuration)];
+    //Attention: The execute modifies the environment.
+    execute(piece, environment) {
+        return [piece.effect.accept(this.statementInterpreter, environment)];
+    }
+
+    executeSafe(piece, environment) {
+        const newEnvironment = environment.clone();
+        return [piece.effect.accept(this.statementInterpreter, newEnvironment)];
     }
 }
 
-export function evaluateExpression(syntaxTree, environment, interpreter = new ExpressionInterpreter()) {
+export function evaluateExpression(syntaxTree, environment = new Environment(), interpreter = new ExpressionInterpreter()) {
     return syntaxTree.accept(interpreter, environment);
 }
-export function evaluateString(soupExpressionString, environment) {
+export function evaluateString(soupExpressionString, environment = new Environment()) {
     const syntaxModel = readExpression(soupExpressionString);
     return evaluateExpression(syntaxModel, environment);
 }
