@@ -24,3 +24,21 @@ This is a simple language based on piecewise relations.
   - [x] primed reference `IDENTIFIER'`
   - [x] NamedPieceReference `p:IDENTIFIER`
   - [x] Enabled `enabled expression`
+
+## Missing things
+
+This is just a simple Soup, some things are missing, and that is normal.
+
+- variable definition in the piece scope (Local To Transition)
+- multiple initial states
+- non-deterministic assignment
+- synchronizations: 2-channels, n-m channels, clocks
+- priority amongst pieces
+- time, a la DBM
+- structures and union, to get sum-of-product user-defined datatypes
+- pattern matching
+- macros or VHDL-like generate statements. Can use M4 for this.
+- functions
+- modules
+- dynamic instantiation
+- ...
