@@ -317,22 +317,22 @@ test('soup actions no action enabled', () => {
     expect(actions.length).toBe(0);
 });
 
-test('soup execute', () => {
+test('soup execute impure', () => {
+    const soup = readSoup('var x = 23; p1: [ x < 25 ] / x = 42');
+    const semantics = new SoupSemantics(soup);
+    const [env] = semantics.initial();
+    const [action] = semantics.actions(env);
+    const [newEnv] = semantics.executeImpure(action, env);
+    expect(newEnv.lookup('x')).toBe(42);
+    expect(newEnv).toBe(env);
+});
+
+test('soup execute pure', () => {
     const soup = readSoup('var x = 23; p1: [ x < 25 ] / x = 42');
     const semantics = new SoupSemantics(soup);
     const [env] = semantics.initial();
     const [action] = semantics.actions(env);
     const [newEnv] = semantics.execute(action, env);
-    expect(newEnv.lookup('x')).toBe(42);
-    expect(newEnv).toBe(env);
-});
-
-test('soup execute safe', () => {
-    const soup = readSoup('var x = 23; p1: [ x < 25 ] / x = 42');
-    const semantics = new SoupSemantics(soup);
-    const [env] = semantics.initial();
-    const [action] = semantics.actions(env);
-    const [newEnv] = semantics.executePure(action, env);
     expect(newEnv.lookup('x')).toBe(42);
     expect(newEnv).not.toBe(env);
     expect(env.lookup('x')).toBe(23);
@@ -341,56 +341,56 @@ test('soup execute safe', () => {
 test('evaluateStepString reference', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 23]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString('x', step)).toBe(23);
 });
 
 test('evaluateStepString primed reference', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString("x'", step)).toBe(42);
 });
 
 test('evaluateStepString primed reference error', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(() => evaluateStepString("y'", step)).toThrow("The variable y is not defined.");
 });
 
 test('evaluateStepString named piece reference', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString("p:p1", step)).toBe(true);
 });
 
 test('evaluateStepString named piece reference false', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString("p:p2", step)).toBe(false);
 });
 
 test('evaluateStepString enabled piece name', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString("enabled p:p1", step)).toBe(true);
 });
 
 test('evaluateStepString enabled piece name false', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString("enabled p:p2", step)).toBe(false);
 });
 
 test('evaluateStepString enabled expression', () => {
     const env0 = new Environment(new Map([['x', 23]]));
     const env1 = new Environment(new Map([['x', 42]]));
-    const step = { source: env0, piece: { name: 'p1' }, target: env1 };
+    const step = { s: env0, a: { name: 'p1' }, t: env1 };
     expect(evaluateStepString("enabled x' > x", step)).toBe(true);
     expect(evaluateStepString("enabled x' == x + 19", step)).toBe(true);
     expect(evaluateStepString("enabled false", step)).toBe(false);
