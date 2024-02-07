@@ -1,5 +1,5 @@
-import { readExpression } from "./SoupReader";
-import { Reference, Visitor } from "./SoupSyntaxModel";
+import { readExpression } from "./SoupReader.js";
+import { Reference, Visitor } from "./SoupSyntaxModel.js";
 import { createXXHash32 } from 'hash-wasm';
 
 //I do not box the values. The booleans are native booleans, the numbers are native numbers.
@@ -263,12 +263,12 @@ export class SoupSemantics {
             return guard;
         });
     }
-    //Attention: The execute modifies the environment.
-    execute(piece, environment) {
+    //Attention: The executeImpure modifies the environment.
+    executeImpure(piece, environment) {
         return [piece.effect.accept(this.statementInterpreter, environment)];
     }
 
-    executePure(piece, environment) {
+    execute(piece, environment) {
         const newEnvironment = environment.clone();
         return [piece.effect.accept(this.statementInterpreter, newEnvironment)];
     }
@@ -292,15 +292,15 @@ export function evaluateStepString(soupExpressionString, stepEnvironment) {
 
 class StepExpressionInterpreter extends ExpressionInterpreter {
     visitReference(node, step) {
-        const {source, piece, target} = step;
+        const {s:source, a:piece, t:target} = step;
         return source.lookup(node.name);
     }
     visitPrimedReference(node, step) {
-        const {source, piece, target} = step;
+        const {s:source, a:piece, t:target} = step;
         return target.lookup(node.name);
     }
     visitNamedPieceReference(node, step) {
-        const {source, piece, target} = step;
+        const {s:source, a:piece, t:target} = step;
         return piece.name === node.name;
     }
     visitEnabledExpression(node, step) {

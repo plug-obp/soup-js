@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Soup Language in JavaScript",
   "main": "index.js",
+  "files": [ "src", "generated" ],
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
