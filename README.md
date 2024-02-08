@@ -1,6 +1,6 @@
 # Soup Language
 
-![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_shield)
+![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_shield) [![codecov](https://codecov.io/gh/plug-obp/soup-js/graph/badge.svg?token=WEJJQY5NSB)](https://codecov.io/gh/plug-obp/soup-js)
 
 This is a simple language based on piecewise relations.
 
