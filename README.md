@@ -1,5 +1,7 @@
 # Soup Language
 
+![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg)
+
 This is a simple language based on piecewise relations.
 
 ## TODO

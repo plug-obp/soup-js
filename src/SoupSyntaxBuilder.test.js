@@ -223,3 +223,7 @@ test('link variable', () => {
       )
     ], expect.anything()));
 });
+
+test('fail', () => {
+  expect(true).toBe(false);
+});
