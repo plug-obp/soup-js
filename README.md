@@ -1,7 +1,9 @@
 # Soup Language
 
-![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_shield)
+![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_shield)
+
+
+![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_small)
 
 This is a simple language based on piecewise relations.
 
@@ -11,7 +13,7 @@ This is a simple language based on piecewise relations.
   - [ ] tests
 - [x] SoupReader
 - [x] Syntax Tree Model
-  - [ ] define structural equality with a visitor instead inline
+  - [ ] define structural equality with a visitor instead of inline
 - [x] Map the Antlr4 tree to the Syntax Model
   - [x] Add position information from ANTLR4
   - [x] tests for Antlr4 to Syntax Model
