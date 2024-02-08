@@ -40,7 +40,5 @@ jobs:
           ${{ runner.os }}-pnpm-store-
     - name: Install dependencies
       run: pnpm install
-    - name: build
-      run: pnpm run build --if-present
     - name: test
       run: pnpm test
