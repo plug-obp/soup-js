@@ -2,9 +2,6 @@
 
 ![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_shield)
 
-
-![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=small)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_small)
-
 This is a simple language based on piecewise relations.
 
 ## TODO
