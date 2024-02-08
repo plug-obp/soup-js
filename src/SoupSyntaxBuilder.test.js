@@ -1,4 +1,4 @@
-import { link, readExpression, readPiece, readSoup, readStatement } from './SoupReader';
+import { link, readExpression, readPiece, readSoup, readStatement } from './SoupReader.js';
 import * as stx from './SoupSyntaxModel.js';
 import {expect, jest, test} from '@jest/globals';
 
