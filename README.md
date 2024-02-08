@@ -10,7 +10,7 @@ This is a simple language based on piecewise relations.
   - [ ] tests
 - [x] SoupReader
 - [x] Syntax Tree Model
-  - [ ] define structural equality with a visitor instead inline
+  - [ ] define structural equality with a visitor instead of inline
 - [x] Map the Antlr4 tree to the Syntax Model
   - [x] Add position information from ANTLR4
   - [x] tests for Antlr4 to Syntax Model
