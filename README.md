@@ -1,6 +1,7 @@
 # Soup Language
 
 ![status](https://github.com/plug-obp/soup-js/actions/workflows/node.js.yml/badge.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_shield)
 
 This is a simple language based on piecewise relations.
 
@@ -45,3 +46,7 @@ This is just a simple Soup, some things are missing, and that is normal.
 - modules
 - dynamic instantiation
 - ...
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fplug-obp%2Fsoup-js?ref=badge_large)
