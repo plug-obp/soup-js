@@ -1,5 +1,5 @@
 import { readExpression } from "./SoupReader.js";
-import { Reference, Visitor, AnonymousPiece } from "./SoupSyntaxModel.js";
+import { Reference, Visitor, AnonymousPiece, NamedPiece } from "./SoupSyntaxModel.js";
 import { createXXHash32 } from 'hash-wasm';
 
 //I do not box the values. The booleans are native booleans, the numbers are native numbers.
@@ -307,7 +307,7 @@ class StepExpressionInterpreter extends ExpressionInterpreter {
     }
     visitNamedPieceReference(node, step) {
         const {s:source, a:piece, t:target} = step;
-        return piece.name === node.name;
+        return piece instanceof NamedPiece && piece.name === node.name;
     }
     visitEnabledExpression(node, step) {
         return node.expression.accept(this, step);
