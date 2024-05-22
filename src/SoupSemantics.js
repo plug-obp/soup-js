@@ -1,5 +1,5 @@
 import { readExpression } from "./SoupReader.js";
-import { Reference, Visitor } from "./SoupSyntaxModel.js";
+import { Reference, Visitor, AnonymousPiece } from "./SoupSyntaxModel.js";
 import { createXXHash32 } from 'hash-wasm';
 
 //I do not box the values. The booleans are native booleans, the numbers are native numbers.
@@ -293,6 +293,12 @@ export function evaluateStepString(soupExpressionString, stepEnvironment) {
 class StepExpressionInterpreter extends ExpressionInterpreter {
     visitReference(node, step) {
         const {s:source, a:piece, t:target} = step;
+        //if  the reference is "deadlock"
+        if (node.name === 'deadlock') {
+            //and the piece is not a soup action, then deadlock
+            if (!(piece instanceof AnonymousPiece)) return true;
+            return false;
+        }
         return source.lookup(node.name);
     }
     visitPrimedReference(node, step) {
