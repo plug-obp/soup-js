@@ -1,0 +1,25 @@
+// solution 2 does not violate the "problem-specific" exclusion property
+// solution 2 does not violate the 'no-deadlock' `meta-`property
+// but it contains a livelock
+// here we try to solve the problem by remembering bob's choice
+var a = 0; dA = false; b = 0; dB = false; 
+| a_i2w: [ a == 0 ] / 
+    a = 1;
+    dA = true;
+| b_i2w: [ b == 0 ] /
+    b = 1;
+    dB = true;
+| a_w2c: [ a == 1 ∧ dB == false ] / a = 2
+| b_w2c: [ b == 1 ∧ dA == false ] / b = 2
+| b_w2r: [ b == 1 ∧ dA == true  ] /
+    b = 3;
+    dB = false;
+| b_r2c: [b == 3 ∧ dA == false ] /
+    b = 2;
+    dB = true;
+| a_c2i: [ a == 2 ] /
+    a = 0;
+    dA = false;
+| b_c2i: [ b == 2 ] /
+    b = 0;
+    dB = false;

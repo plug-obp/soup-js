@@ -1,0 +1,17 @@
+// solution 3 does not violate the "problem-specific" exclusion property
+// solution 3 does not violate the 'no-deadlock' `meta-`property
+// but still contains a livelock
+// here we try to solve the problem through the petterson algorithm
+var a = 0; b = 0; turn = 0 
+| a_i2w: [ a == 0 ] / 
+    a = 1;
+    turn = 1 - turn;
+| b_i2w: [ b == 0 ] /
+    b = 1;
+    turn = 1 - turn;
+| a_w2c: [ a == 1 ∧ (turn == 0 || b != 1)  ] / a = 2
+| b_w2c: [ b == 1 ∧ (turn == 1 || a != 1) ] / b = 2
+| a_c2i: [ a == 2 ] /
+    a = 0;
+| b_c2i: [ b == 2 ] /
+    b = 0;

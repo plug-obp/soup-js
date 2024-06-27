@@ -1,0 +1,21 @@
+// solution 1 does not violate the "problem-specific" exclusion property
+// but it violated the 'no-deadlock' `meta-`property
+// here bob is nice, if ever deadlock he renounces
+var a = 0; dA = false; b = 0; dB = false; 
+| a_i2w: [ a == 0 ] / 
+    a = 1;
+    dA = true;
+| b_i2w: [ b == 0 ] /
+    b = 1;
+    dB = true;
+| a_w2c: [ a == 1 ∧ dB == false ] / a = 2
+| b_w2c: [ b == 1 ∧ dA == false ] / b = 2
+| b_w2i: [ b == 1 ∧ dA == true  ] /
+    b = 0;
+    dB = false;
+| a_c2i: [ a == 2 ] /
+    a = 0;
+    dA = false;
+| b_c2i: [ b == 2 ] /
+    b = 0;
+    dB = false;
