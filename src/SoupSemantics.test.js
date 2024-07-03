@@ -1,5 +1,5 @@
 import { readSoup, readStatement } from './SoupReader';
-import { Environment, evaluateStepString, evaluateString, ExpressionInterpreter, SoupSemantics, StatementInterpreter } from './SoupSemantics';
+import { RuntimeEnvironment, evaluateStepString, evaluateString, ExpressionInterpreter, SoupSemantics, StatementInterpreter } from './SoupSemantics';
 import { NamedPiece, Skip } from './SoupSyntaxModel';
 
 test('eval literal', () => {
@@ -10,9 +10,9 @@ test('eval literal', () => {
 });
 
 test('eval reference', () => {
-    expect(evaluateString('x', new Environment(new Map([['x', 23]])))).toBe(23);
-    expect(evaluateString('zm', new Environment(new Map([['zm', 42]])))).toBe(42);
-    expect(() => evaluateString('x', new Environment())).toThrow('The variable x is not defined.');
+    expect(evaluateString('x', new RuntimeEnvironment(new Map([['x', 23]])))).toBe(23);
+    expect(evaluateString('zm', new RuntimeEnvironment(new Map([['zm', 42]])))).toBe(42);
+    expect(() => evaluateString('x', new RuntimeEnvironment())).toThrow('The variable x is not defined.');
 });
 
 test('eval unary', () => {
@@ -185,22 +185,22 @@ test('eval conditional', () => {
 });
 
 test('eval expression with variable', () => {
-    expect(evaluateString('x + 1', new Environment(new Map([['x', 23]])))).toBe(24);
-    expect(evaluateString('zm && zm', new Environment(new Map([['zm', true]])))).toBe(true);
+    expect(evaluateString('x + 1', new RuntimeEnvironment(new Map([['x', 23]])))).toBe(24);
+    expect(evaluateString('zm && zm', new RuntimeEnvironment(new Map([['zm', true]])))).toBe(true);
 });
 
 test('eval expression with variable error', () => {
-    expect(() => evaluateString('x + 1', new Environment())).toThrow('The variable x is not defined.');
+    expect(() => evaluateString('x + 1', new RuntimeEnvironment())).toThrow('The variable x is not defined.');
 });
 
 test('eval expression with variable and conditional', () => {
-    expect(evaluateString('x ? 23 : 42', new Environment(new Map([['x', true]])))).toBe(23);
-    expect(evaluateString('x ? 23 : 42', new Environment(new Map([['x', false]])))).toBe(42);
+    expect(evaluateString('x ? 23 : 42', new RuntimeEnvironment(new Map([['x', true]])))).toBe(23);
+    expect(evaluateString('x ? 23 : 42', new RuntimeEnvironment(new Map([['x', false]])))).toBe(42);
 });
 
 test('execute assign statement', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23]]));
     let statement = readStatement('x = 42');
     statement.accept(statementInterpreter, env);
     expect(env.lookup('x')).toBe(42);
@@ -215,7 +215,7 @@ test('execute assign statement', () => {
 
 test('execute if statement', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23]]));
     let statement = readStatement('if (x < 42) then x = 42');
     statement.accept(statementInterpreter, env);
     expect(env.lookup('x')).toBe(42);
@@ -229,7 +229,7 @@ test('execute if statement', () => {
 
 test('execute if statement with nested if', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23]]));
     const statement = readStatement('if (x < 42) then if (x < 23) then x = 42 else x = 23');
     statement.accept(statementInterpreter, env);
     expect(env.lookup('x')).toBe(23);
@@ -237,14 +237,14 @@ test('execute if statement with nested if', () => {
 
 test('execute if with non boolean condition', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23]]));
     const statement = readStatement('if (x) then x = 42');
     expect(() => statement.accept(statementInterpreter, env)).toThrow("If condition expects a boolean, got '23'.");
 });
 
 test('execute sequence statement', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23], ['y', 42]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23], ['y', 42]]));
     const statement = readStatement('x = 42; y = 23');
     statement.accept(statementInterpreter, env);
     expect(env.lookup('x')).toBe(42);
@@ -253,7 +253,7 @@ test('execute sequence statement', () => {
 
 test('execute 3 statements in sequence', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23], ['y', 42]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23], ['y', 42]]));
     const statement = readStatement('x = 42; y = 23; x = 23');
     statement.accept(statementInterpreter, env);
     expect(env.lookup('x')).toBe(23);
@@ -262,7 +262,7 @@ test('execute 3 statements in sequence', () => {
 
 test('execute skip statement', () => {
     const statementInterpreter = new StatementInterpreter();
-    const env = new Environment(new Map([['x', 23]]));
+    const env = new RuntimeEnvironment(new Map([['x', 23]]));
     const statement = new Skip();
     statement.accept(statementInterpreter, env);
     expect(env.lookup('x')).toBe(23);
@@ -339,57 +339,57 @@ test('soup execute pure', () => {
 });
 
 test('evaluateStepString reference', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 23]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 23]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString('x', step)).toBe(23);
 });
 
 test('evaluateStepString primed reference', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString("x'", step)).toBe(42);
 });
 
 test('evaluateStepString primed reference error', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(() => evaluateStepString("y'", step)).toThrow("The variable y is not defined.");
 });
 
 test('evaluateStepString named piece reference', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString("p:p1", step)).toBe(true);
 });
 
 test('evaluateStepString named piece reference false', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString("p:p2", step)).toBe(false);
 });
 
 test('evaluateStepString enabled piece name', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString("enabled p:p1", step)).toBe(true);
 });
 
 test('evaluateStepString enabled piece name false', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString("enabled p:p2", step)).toBe(false);
 });
 
 test('evaluateStepString enabled expression', () => {
-    const env0 = new Environment(new Map([['x', 23]]));
-    const env1 = new Environment(new Map([['x', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 42]]));
     const step = { s: env0, a: new NamedPiece('p1'), t: env1 };
     expect(evaluateStepString("enabled x' > x", step)).toBe(true);
     expect(evaluateStepString("enabled x' == x + 19", step)).toBe(true);
@@ -397,10 +397,10 @@ test('evaluateStepString enabled expression', () => {
 });
 
 test('environment hashcode', async () => {
-    const env0 = new Environment(new Map([['x', 23], ['y', 42]]));
-    const env1 = new Environment(new Map([['x', 23], ['y', 42]]));
-    const env2 = new Environment(new Map([['y', 42], ['x', 23]]));
-    const env3 = new Environment(new Map([['x', 42], ['y', 42]]));
+    const env0 = new RuntimeEnvironment(new Map([['x', 23], ['y', 42]]));
+    const env1 = new RuntimeEnvironment(new Map([['x', 23], ['y', 42]]));
+    const env2 = new RuntimeEnvironment(new Map([['y', 42], ['x', 23]]));
+    const env3 = new RuntimeEnvironment(new Map([['x', 42], ['y', 42]]));
     const he0 = await env0.hashCode();
     const he1 = await env1.hashCode();
     const he2 = await env2.hashCode();

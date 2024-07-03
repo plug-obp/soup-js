@@ -1,6 +1,6 @@
-import { DependentExpressionInterpreter, ExtendedEnvironment } from "./SoupDependentSemantics.js";
+import { DependentExpressionInterpreter, DependentRuntimeEnvironment } from "./SoupDependentSemantics.js";
 import { readExpression, readSoup } from "./SoupReader.js";
-import { SoupSemantics, StepExpressionInterpreter, Environment } from "./SoupSemantics.js";
+import { SoupSemantics, StepExpressionInterpreter, RuntimeEnvironment } from "./SoupSemantics.js";
 import { InputReference, NumberLiteral } from "./SoupSyntaxModel.js";
 
 function base() {
@@ -23,8 +23,8 @@ test('dependent expression eval', () => {
     function deval(code) {
         const expression = readExpression(code);
         const evaluator = new DependentExpressionInterpreter(stepEvaluator);
-        const environment = new Environment();
-        const extendedEnvironment = new ExtendedEnvironment(new Map([["@",step]]), environment);
+        const environment = new RuntimeEnvironment();
+        const extendedEnvironment = new DependentRuntimeEnvironment(new Map([["@",step]]), environment);
         const value = expression.accept(evaluator, extendedEnvironment);
         return value;
     }
@@ -45,9 +45,9 @@ test('mixed eval', () => {
     function deval(code) {
         const expression = readExpression(code);
         const evaluator = new DependentExpressionInterpreter(stepEvaluator);
-        const environment = new Environment();
+        const environment = new RuntimeEnvironment();
         environment.define('x', 1);
-        const extendedEnvironment = new ExtendedEnvironment(new Map([["@",step]]), environment);
+        const extendedEnvironment = new DependentRuntimeEnvironment(new Map([["@",step]]), environment);
         const value = expression.accept(evaluator, extendedEnvironment);
         return value;
     }

@@ -1,7 +1,7 @@
 import { ExpressionInterpreter, StatementInterpreter, StepExpressionInterpreter } from "./SoupSemantics.js";
 import { Environment } from "./SoupSyntaxBuilder.js";
 
-export class ExtendedEnvironment {
+export class DependentRuntimeEnvironment {
     constructor(scope = Map(), parent = null) {
         this.scope = scope;
         this.parent = parent;
@@ -18,7 +18,7 @@ export class ExtendedEnvironment {
     }
 
     clone() {
-        return new ExtendedEnvironment(new Map(this.scope), this.parent().clone());
+        return new DependentRuntimeEnvironment(new Map(this.scope), this.parent().clone());
     }
 
     async hashCode() {
@@ -37,7 +37,7 @@ export class ExtendedEnvironment {
 
     equals(other) {
         if (other === this) { return true; }
-        if (other instanceof ExtendedEnvironment === false) { return false; }
+        if (other instanceof DependentRuntimeEnvironment === false) { return false; }
         if (this.scope.size !== other.scope.size) {
             return false;
         }
@@ -87,7 +87,7 @@ export class SoupDependentSemantics {
         return [environment];
     }
     actions(input, environment) {
-        const extendedEnvironment = new ExtendedEnvironment(new Map([[ "@", input]]), environment);
+        const extendedEnvironment = new DependentRuntimeEnvironment(new Map([[ "@", input]]), environment);
         return this.soup.pieces.filter(piece => {
             const guard = piece.guard.accept(this.expressionInterpreter, extendedEnvironment);
             ensureBoolean('Piece guard', guard);
@@ -96,7 +96,7 @@ export class SoupDependentSemantics {
     }
 
     execute(piece, input, environment) {
-        const extendedEnvironment = new ExtendedEnvironment(new Map([[ "@", input]]), environment.clone());
+        const extendedEnvironment = new DependentRuntimeEnvironment(new Map([[ "@", input]]), environment.clone());
         return [piece.effect.accept(this.statementInterpreter, extendedEnvironment)];
     }
 }

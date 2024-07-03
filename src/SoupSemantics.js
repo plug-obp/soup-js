@@ -3,7 +3,7 @@ import { Reference, Visitor, AnonymousPiece, NamedPiece } from "./SoupSyntaxMode
 import { createXXHash32 } from 'hash-wasm';
 
 //I do not box the values. The booleans are native booleans, the numbers are native numbers.
-export class Environment {
+export class RuntimeEnvironment {
     constructor(scope = new Map()) {
         this.scope = scope;
     }
@@ -26,7 +26,7 @@ export class Environment {
         this.scope.set(name, value);
     }
     clone() {
-        return new Environment(new Map(this.scope));
+        return new RuntimeEnvironment(new Map(this.scope));
     }
 
     async hashCode() {
@@ -42,7 +42,7 @@ export class Environment {
 
     equals(other) {
         if (other === this) { return true; }
-        if (other instanceof Environment === false) { return false; }
+        if (other instanceof RuntimeEnvironment === false) { return false; }
         if (this.scope.size !== other.scope.size) {
             return false;
         }
@@ -250,7 +250,7 @@ export class SoupSemantics {
             this.statementInterpreter = statementInterpreter;
     }
     initial() {
-        const environment = new Environment();
+        const environment = new RuntimeEnvironment();
         for (const variable of this.soup.variables) {
             environment.define(variable.name, variable.initialValue.accept(this.expressionInterpreter, environment));
         }
@@ -274,10 +274,10 @@ export class SoupSemantics {
     }
 }
 
-export function evaluateExpression(syntaxTree, environment = new Environment(), interpreter = new ExpressionInterpreter()) {
+export function evaluateExpression(syntaxTree, environment = new RuntimeEnvironment(), interpreter = new ExpressionInterpreter()) {
     return syntaxTree.accept(interpreter, environment);
 }
-export function evaluateString(soupExpressionString, environment = new Environment()) {
+export function evaluateString(soupExpressionString, environment = new RuntimeEnvironment()) {
     const syntaxModel = readExpression(soupExpressionString);
     return evaluateExpression(syntaxModel, environment);
 }
