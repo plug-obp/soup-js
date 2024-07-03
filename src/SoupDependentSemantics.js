@@ -66,7 +66,8 @@ export class SoupDependentSemantics {
 
     execute(piece, input, environment) {
         const extendedEnvironment = new DependentRuntimeEnvironment(input, environment.clone());
-        return [piece.effect.accept(this.statementInterpreter, extendedEnvironment)];
+        const target = piece.effect.accept(this.statementInterpreter, extendedEnvironment);
+        return [target.environment];
     }
 }
 

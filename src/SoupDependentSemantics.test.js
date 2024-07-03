@@ -72,4 +72,5 @@ test('dependent semantics', () => {
     const a = semantics.actions(step, s)[0];
     const t = semantics.execute(a, step, s)[0];
     expect(t.lookup('x')).toBe(4);
+    expect(t).not.toBeInstanceOf(DependentRuntimeEnvironment);
 });
