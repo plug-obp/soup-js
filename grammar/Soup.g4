@@ -18,6 +18,7 @@ expression
     | IDENTIFIER PRIME                                          #PrimedReferenceExp //this is only for step evaluation
     | <assoc=right> 'p:' IDENTIFIER                             #NamedPieceReferenceExp //this is only for step evaluation
     | <assoc=right> ENABLED expression                          #EnabledExp //this is only for dianosis evaluation
+    | <assoc=right> INPUT expression                            #InputReferenceExp //this is only for the dependent semantics
     | <assoc=right> operator=(NOT | PLUS | MINUS) expression    #UnaryExp
     | expression operator=(MULT | DIV | MOD) expression         #BinaryExpression
     | expression operator=(PLUS | MINUS) expression             #BinaryExpression
@@ -49,6 +50,7 @@ THEN: 'then';
 ELSE: 'else';
 VAR: 'var';
 ENABLED: 'enabled';
+INPUT:'@';
 
 IDENTIFIER : [a-zA-Z][a-zA-Z_0-9]*;
 NUMBER: [+-]? NATURAL (DOT NATURAL)?;

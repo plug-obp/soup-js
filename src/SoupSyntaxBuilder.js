@@ -224,6 +224,9 @@ export class SoupSyntaxBuilder extends SoupListener {
     exitEnabledExp(ctx) {
         this.setValue(ctx, new stx.EnabledExpression(this.getValue(ctx.expression(), this.position(ctx) )));
     }
+    exitInputReferenceExp(ctx) {
+        this.setValue(ctx, new stx.InputReference(this.getValue(ctx.expression(), this.position(ctx) )));
+    }
 }
 
 /*

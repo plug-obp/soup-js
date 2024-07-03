@@ -2,52 +2,53 @@
 // jshint ignore: start
 import antlr4 from 'antlr4';
 import SoupListener from './SoupListener.js';
-const serializedATN = [4,1,47,146,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
+const serializedATN = [4,1,48,148,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,
 4,2,5,7,5,2,6,7,6,2,7,7,7,2,8,7,8,2,9,7,9,1,0,3,0,22,8,0,1,0,3,0,25,8,0,
 1,0,1,0,1,0,5,0,30,8,0,10,0,12,0,33,9,0,3,0,35,8,0,1,1,1,1,1,1,1,1,5,1,41,
 8,1,10,1,12,1,44,9,1,1,1,3,1,47,8,1,1,2,1,2,1,2,3,2,52,8,2,1,2,3,2,55,8,
 2,1,2,3,2,58,8,2,1,2,3,2,61,8,2,1,3,1,3,1,4,1,4,1,4,1,4,1,5,1,5,1,5,3,5,
-72,8,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,89,
-8,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,
-1,6,1,6,1,6,1,6,1,6,1,6,1,6,5,6,115,8,6,10,6,12,6,118,9,6,1,7,1,7,1,8,1,
-8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,130,8,8,3,8,132,8,8,1,8,1,8,1,8,5,8,137,8,
-8,10,8,12,8,140,9,8,1,9,1,9,1,9,1,9,1,9,0,2,12,16,10,0,2,4,6,8,10,12,14,
-16,18,0,7,1,0,38,39,2,0,13,13,19,20,1,0,23,25,1,0,19,20,1,0,26,29,2,0,30,
-30,32,32,2,0,3,4,11,11,162,0,21,1,0,0,0,2,36,1,0,0,0,4,60,1,0,0,0,6,62,1,
-0,0,0,8,64,1,0,0,0,10,68,1,0,0,0,12,88,1,0,0,0,14,119,1,0,0,0,16,131,1,0,
-0,0,18,141,1,0,0,0,20,22,3,2,1,0,21,20,1,0,0,0,21,22,1,0,0,0,22,34,1,0,0,
-0,23,25,5,34,0,0,24,23,1,0,0,0,24,25,1,0,0,0,25,26,1,0,0,0,26,31,3,4,2,0,
-27,28,5,34,0,0,28,30,3,4,2,0,29,27,1,0,0,0,30,33,1,0,0,0,31,29,1,0,0,0,31,
-32,1,0,0,0,32,35,1,0,0,0,33,31,1,0,0,0,34,24,1,0,0,0,34,35,1,0,0,0,35,1,
-1,0,0,0,36,37,5,8,0,0,37,42,3,18,9,0,38,39,5,37,0,0,39,41,3,18,9,0,40,38,
-1,0,0,0,41,44,1,0,0,0,42,40,1,0,0,0,42,43,1,0,0,0,43,46,1,0,0,0,44,42,1,
-0,0,0,45,47,5,37,0,0,46,45,1,0,0,0,46,47,1,0,0,0,47,3,1,0,0,0,48,49,5,10,
-0,0,49,51,3,6,3,0,50,52,3,8,4,0,51,50,1,0,0,0,51,52,1,0,0,0,52,54,1,0,0,
-0,53,55,3,10,5,0,54,53,1,0,0,0,54,55,1,0,0,0,55,61,1,0,0,0,56,58,3,8,4,0,
-57,56,1,0,0,0,57,58,1,0,0,0,58,59,1,0,0,0,59,61,3,10,5,0,60,48,1,0,0,0,60,
-57,1,0,0,0,61,5,1,0,0,0,62,63,7,0,0,0,63,7,1,0,0,0,64,65,5,42,0,0,65,66,
-3,12,6,0,66,67,5,43,0,0,67,9,1,0,0,0,68,69,5,24,0,0,69,71,3,16,8,0,70,72,
-5,37,0,0,71,70,1,0,0,0,71,72,1,0,0,0,72,11,1,0,0,0,73,74,6,6,-1,0,74,89,
-3,14,7,0,75,89,5,10,0,0,76,77,5,40,0,0,77,78,3,12,6,0,78,79,5,41,0,0,79,
-89,1,0,0,0,80,81,5,10,0,0,81,89,5,44,0,0,82,83,5,1,0,0,83,89,5,10,0,0,84,
-85,5,9,0,0,85,89,3,12,6,9,86,87,7,1,0,0,87,89,3,12,6,8,88,73,1,0,0,0,88,
-75,1,0,0,0,88,76,1,0,0,0,88,80,1,0,0,0,88,82,1,0,0,0,88,84,1,0,0,0,88,86,
-1,0,0,0,89,116,1,0,0,0,90,91,10,7,0,0,91,92,7,2,0,0,92,115,3,12,6,8,93,94,
-10,6,0,0,94,95,7,3,0,0,95,115,3,12,6,7,96,97,10,5,0,0,97,98,7,4,0,0,98,115,
-3,12,6,6,99,100,10,4,0,0,100,101,7,5,0,0,101,115,3,12,6,5,102,103,10,3,0,
-0,103,104,5,15,0,0,104,115,3,12,6,4,105,106,10,2,0,0,106,107,5,14,0,0,107,
-115,3,12,6,3,108,109,10,1,0,0,109,110,5,2,0,0,110,111,3,12,6,0,111,112,5,
-38,0,0,112,113,3,12,6,1,113,115,1,0,0,0,114,90,1,0,0,0,114,93,1,0,0,0,114,
-96,1,0,0,0,114,99,1,0,0,0,114,102,1,0,0,0,114,105,1,0,0,0,114,108,1,0,0,
-0,115,118,1,0,0,0,116,114,1,0,0,0,116,117,1,0,0,0,117,13,1,0,0,0,118,116,
-1,0,0,0,119,120,7,6,0,0,120,15,1,0,0,0,121,122,6,8,-1,0,122,132,3,18,9,0,
-123,124,5,5,0,0,124,125,3,12,6,0,125,126,5,6,0,0,126,129,3,16,8,0,127,128,
-5,7,0,0,128,130,3,16,8,0,129,127,1,0,0,0,129,130,1,0,0,0,130,132,1,0,0,0,
-131,121,1,0,0,0,131,123,1,0,0,0,132,138,1,0,0,0,133,134,10,1,0,0,134,135,
-5,37,0,0,135,137,3,16,8,2,136,133,1,0,0,0,137,140,1,0,0,0,138,136,1,0,0,
-0,138,139,1,0,0,0,139,17,1,0,0,0,140,138,1,0,0,0,141,142,5,10,0,0,142,143,
-5,31,0,0,143,144,3,12,6,0,144,19,1,0,0,0,17,21,24,31,34,42,46,51,54,57,60,
-71,88,114,116,129,131,138];
+72,8,5,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,
+6,3,6,91,8,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,
+1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,5,6,117,8,6,10,6,12,6,120,9,6,1,7,1,
+7,1,8,1,8,1,8,1,8,1,8,1,8,1,8,1,8,3,8,132,8,8,3,8,134,8,8,1,8,1,8,1,8,5,
+8,139,8,8,10,8,12,8,142,9,8,1,9,1,9,1,9,1,9,1,9,0,2,12,16,10,0,2,4,6,8,10,
+12,14,16,18,0,7,1,0,39,40,2,0,14,14,20,21,1,0,24,26,1,0,20,21,1,0,27,30,
+2,0,31,31,33,33,2,0,3,4,12,12,165,0,21,1,0,0,0,2,36,1,0,0,0,4,60,1,0,0,0,
+6,62,1,0,0,0,8,64,1,0,0,0,10,68,1,0,0,0,12,90,1,0,0,0,14,121,1,0,0,0,16,
+133,1,0,0,0,18,143,1,0,0,0,20,22,3,2,1,0,21,20,1,0,0,0,21,22,1,0,0,0,22,
+34,1,0,0,0,23,25,5,35,0,0,24,23,1,0,0,0,24,25,1,0,0,0,25,26,1,0,0,0,26,31,
+3,4,2,0,27,28,5,35,0,0,28,30,3,4,2,0,29,27,1,0,0,0,30,33,1,0,0,0,31,29,1,
+0,0,0,31,32,1,0,0,0,32,35,1,0,0,0,33,31,1,0,0,0,34,24,1,0,0,0,34,35,1,0,
+0,0,35,1,1,0,0,0,36,37,5,8,0,0,37,42,3,18,9,0,38,39,5,38,0,0,39,41,3,18,
+9,0,40,38,1,0,0,0,41,44,1,0,0,0,42,40,1,0,0,0,42,43,1,0,0,0,43,46,1,0,0,
+0,44,42,1,0,0,0,45,47,5,38,0,0,46,45,1,0,0,0,46,47,1,0,0,0,47,3,1,0,0,0,
+48,49,5,11,0,0,49,51,3,6,3,0,50,52,3,8,4,0,51,50,1,0,0,0,51,52,1,0,0,0,52,
+54,1,0,0,0,53,55,3,10,5,0,54,53,1,0,0,0,54,55,1,0,0,0,55,61,1,0,0,0,56,58,
+3,8,4,0,57,56,1,0,0,0,57,58,1,0,0,0,58,59,1,0,0,0,59,61,3,10,5,0,60,48,1,
+0,0,0,60,57,1,0,0,0,61,5,1,0,0,0,62,63,7,0,0,0,63,7,1,0,0,0,64,65,5,43,0,
+0,65,66,3,12,6,0,66,67,5,44,0,0,67,9,1,0,0,0,68,69,5,25,0,0,69,71,3,16,8,
+0,70,72,5,38,0,0,71,70,1,0,0,0,71,72,1,0,0,0,72,11,1,0,0,0,73,74,6,6,-1,
+0,74,91,3,14,7,0,75,91,5,11,0,0,76,77,5,41,0,0,77,78,3,12,6,0,78,79,5,42,
+0,0,79,91,1,0,0,0,80,81,5,11,0,0,81,91,5,45,0,0,82,83,5,1,0,0,83,91,5,11,
+0,0,84,85,5,9,0,0,85,91,3,12,6,10,86,87,5,10,0,0,87,91,3,12,6,9,88,89,7,
+1,0,0,89,91,3,12,6,8,90,73,1,0,0,0,90,75,1,0,0,0,90,76,1,0,0,0,90,80,1,0,
+0,0,90,82,1,0,0,0,90,84,1,0,0,0,90,86,1,0,0,0,90,88,1,0,0,0,91,118,1,0,0,
+0,92,93,10,7,0,0,93,94,7,2,0,0,94,117,3,12,6,8,95,96,10,6,0,0,96,97,7,3,
+0,0,97,117,3,12,6,7,98,99,10,5,0,0,99,100,7,4,0,0,100,117,3,12,6,6,101,102,
+10,4,0,0,102,103,7,5,0,0,103,117,3,12,6,5,104,105,10,3,0,0,105,106,5,16,
+0,0,106,117,3,12,6,4,107,108,10,2,0,0,108,109,5,15,0,0,109,117,3,12,6,3,
+110,111,10,1,0,0,111,112,5,2,0,0,112,113,3,12,6,0,113,114,5,39,0,0,114,115,
+3,12,6,1,115,117,1,0,0,0,116,92,1,0,0,0,116,95,1,0,0,0,116,98,1,0,0,0,116,
+101,1,0,0,0,116,104,1,0,0,0,116,107,1,0,0,0,116,110,1,0,0,0,117,120,1,0,
+0,0,118,116,1,0,0,0,118,119,1,0,0,0,119,13,1,0,0,0,120,118,1,0,0,0,121,122,
+7,6,0,0,122,15,1,0,0,0,123,124,6,8,-1,0,124,134,3,18,9,0,125,126,5,5,0,0,
+126,127,3,12,6,0,127,128,5,6,0,0,128,131,3,16,8,0,129,130,5,7,0,0,130,132,
+3,16,8,0,131,129,1,0,0,0,131,132,1,0,0,0,132,134,1,0,0,0,133,123,1,0,0,0,
+133,125,1,0,0,0,134,140,1,0,0,0,135,136,10,1,0,0,136,137,5,38,0,0,137,139,
+3,16,8,2,138,135,1,0,0,0,139,142,1,0,0,0,140,138,1,0,0,0,140,141,1,0,0,0,
+141,17,1,0,0,0,142,140,1,0,0,0,143,144,5,11,0,0,144,145,5,32,0,0,145,146,
+3,12,6,0,146,19,1,0,0,0,17,21,24,31,34,42,46,51,54,57,60,71,90,116,118,131,
+133,140];
 
 
 const atn = new antlr4.atn.ATNDeserializer().deserialize(serializedATN);
@@ -60,20 +61,21 @@ export default class SoupParser extends antlr4.Parser {
 
     static grammarFileName = "Soup.g4";
     static literalNames = [ null, "'p:'", "'?'", "'true'", "'false'", "'if'", 
-                            "'then'", "'else'", "'var'", "'enabled'", null, 
-                            null, null, "'!'", null, null, "'nor'", "'nand'", 
-                            null, "'+'", "'-'", "'<<'", "'>>'", "'*'", "'/'", 
-                            "'%'", null, "'<'", null, "'>'", "'=='", "'='", 
-                            null, null, "'|'", "','", "'.'", "';'", "':'", 
-                            "'\\u225C'", "'('", "')'", "'['", "']'", "'''" ];
+                            "'then'", "'else'", "'var'", "'enabled'", "'@'", 
+                            null, null, null, "'!'", null, null, "'nor'", 
+                            "'nand'", null, "'+'", "'-'", "'<<'", "'>>'", 
+                            "'*'", "'/'", "'%'", null, "'<'", null, "'>'", 
+                            "'=='", "'='", null, null, "'|'", "','", "'.'", 
+                            "';'", "':'", "'\\u225C'", "'('", "')'", "'['", 
+                            "']'", "'''" ];
     static symbolicNames = [ null, null, null, "TRUE", "FALSE", "IF", "THEN", 
-                             "ELSE", "VAR", "ENABLED", "IDENTIFIER", "NUMBER", 
-                             "NATURAL", "NOT", "OR", "AND", "NOR", "NAND", 
-                             "XOR", "PLUS", "MINUS", "SHL", "SHR", "MULT", 
-                             "DIV", "MOD", "LE", "LT", "GE", "GT", "BEQ", 
-                             "EQ", "NEQ", "IFF", "PIPE", "COMMA", "DOT", 
-                             "SEMICOLON", "COLON", "TEQ", "LPAREN", "RPAREN", 
-                             "LSQUARE", "RSQUARE", "PRIME", "LINE_COMMENT", 
+                             "ELSE", "VAR", "ENABLED", "INPUT", "IDENTIFIER", 
+                             "NUMBER", "NATURAL", "NOT", "OR", "AND", "NOR", 
+                             "NAND", "XOR", "PLUS", "MINUS", "SHL", "SHR", 
+                             "MULT", "DIV", "MOD", "LE", "LT", "GE", "GT", 
+                             "BEQ", "EQ", "NEQ", "IFF", "PIPE", "COMMA", 
+                             "DOT", "SEMICOLON", "COLON", "TEQ", "LPAREN", 
+                             "RPAREN", "LSQUARE", "RSQUARE", "PRIME", "LINE_COMMENT", 
                              "COMMENT", "WS" ];
     static ruleNames = [ "soup", "variables", "piece", "definedAs", "guard", 
                          "effect", "expression", "literal", "statement", 
@@ -148,11 +150,11 @@ export default class SoupParser extends antlr4.Parser {
 	        this.state = 34;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if(_la===10 || _la===24 || _la===34 || _la===42) {
+	        if(_la===11 || _la===25 || _la===35 || _la===43) {
 	            this.state = 24;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            if(_la===34) {
+	            if(_la===35) {
 	                this.state = 23;
 	                this.match(SoupParser.PIPE);
 	            }
@@ -162,7 +164,7 @@ export default class SoupParser extends antlr4.Parser {
 	            this.state = 31;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            while(_la===34) {
+	            while(_la===35) {
 	                this.state = 27;
 	                this.match(SoupParser.PIPE);
 	                this.state = 28;
@@ -217,7 +219,7 @@ export default class SoupParser extends antlr4.Parser {
 	        this.state = 46;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if(_la===37) {
+	        if(_la===38) {
 	            this.state = 45;
 	            this.match(SoupParser.SEMICOLON);
 	        }
@@ -246,7 +248,7 @@ export default class SoupParser extends antlr4.Parser {
 	        this.state = 60;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
-	        case 10:
+	        case 11:
 	            localctx = new NamedPieceContext(this, localctx);
 	            this.enterOuterAlt(localctx, 1);
 	            this.state = 48;
@@ -256,7 +258,7 @@ export default class SoupParser extends antlr4.Parser {
 	            this.state = 51;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            if(_la===42) {
+	            if(_la===43) {
 	                this.state = 50;
 	                this.guard();
 	            }
@@ -264,20 +266,20 @@ export default class SoupParser extends antlr4.Parser {
 	            this.state = 54;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            if(_la===24) {
+	            if(_la===25) {
 	                this.state = 53;
 	                this.effect();
 	            }
 
 	            break;
-	        case 24:
-	        case 42:
+	        case 25:
+	        case 43:
 	            localctx = new AnonymousPieceContext(this, localctx);
 	            this.enterOuterAlt(localctx, 2);
 	            this.state = 57;
 	            this._errHandler.sync(this);
 	            _la = this._input.LA(1);
-	            if(_la===42) {
+	            if(_la===43) {
 	                this.state = 56;
 	                this.guard();
 	            }
@@ -312,7 +314,7 @@ export default class SoupParser extends antlr4.Parser {
 	        this.enterOuterAlt(localctx, 1);
 	        this.state = 62;
 	        _la = this._input.LA(1);
-	        if(!(_la===38 || _la===39)) {
+	        if(!(_la===39 || _la===40)) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -375,7 +377,7 @@ export default class SoupParser extends antlr4.Parser {
 	        this.state = 71;
 	        this._errHandler.sync(this);
 	        _la = this._input.LA(1);
-	        if(_la===37) {
+	        if(_la===38) {
 	            this.state = 70;
 	            this.match(SoupParser.SEMICOLON);
 	        }
@@ -408,7 +410,7 @@ export default class SoupParser extends antlr4.Parser {
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 88;
+	        this.state = 90;
 	        this._errHandler.sync(this);
 	        var la_ = this._interp.adaptivePredict(this._input,11,this._ctx);
 	        switch(la_) {
@@ -468,30 +470,40 @@ export default class SoupParser extends antlr4.Parser {
 	            this.state = 84;
 	            this.match(SoupParser.ENABLED);
 	            this.state = 85;
-	            this.expression(9);
+	            this.expression(10);
 	            break;
 
 	        case 7:
-	            localctx = new UnaryExpContext(this, localctx);
+	            localctx = new InputReferenceExpContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 	            this.state = 86;
+	            this.match(SoupParser.INPUT);
+	            this.state = 87;
+	            this.expression(9);
+	            break;
+
+	        case 8:
+	            localctx = new UnaryExpContext(this, localctx);
+	            this._ctx = localctx;
+	            _prevctx = localctx;
+	            this.state = 88;
 	            localctx.operator = this._input.LT(1);
 	            _la = this._input.LA(1);
-	            if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 1581056) !== 0))) {
+	            if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 3162112) !== 0))) {
 	                localctx.operator = this._errHandler.recoverInline(this);
 	            }
 	            else {
 	            	this._errHandler.reportMatch(this);
 	                this.consume();
 	            }
-	            this.state = 87;
+	            this.state = 89;
 	            this.expression(8);
 	            break;
 
 	        }
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 116;
+	        this.state = 118;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,13,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -500,140 +512,140 @@ export default class SoupParser extends antlr4.Parser {
 	                    this.triggerExitRuleEvent();
 	                }
 	                _prevctx = localctx;
-	                this.state = 114;
+	                this.state = 116;
 	                this._errHandler.sync(this);
 	                var la_ = this._interp.adaptivePredict(this._input,12,this._ctx);
 	                switch(la_) {
 	                case 1:
 	                    localctx = new BinaryExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 90;
+	                    this.state = 92;
 	                    if (!( this.precpred(this._ctx, 7))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 7)");
 	                    }
-	                    this.state = 91;
+	                    this.state = 93;
 	                    localctx.operator = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 58720256) !== 0))) {
+	                    if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 117440512) !== 0))) {
 	                        localctx.operator = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
 	                    	this._errHandler.reportMatch(this);
 	                        this.consume();
 	                    }
-	                    this.state = 92;
+	                    this.state = 94;
 	                    this.expression(8);
 	                    break;
 
 	                case 2:
 	                    localctx = new BinaryExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 93;
+	                    this.state = 95;
 	                    if (!( this.precpred(this._ctx, 6))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 6)");
 	                    }
-	                    this.state = 94;
+	                    this.state = 96;
 	                    localctx.operator = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===19 || _la===20)) {
+	                    if(!(_la===20 || _la===21)) {
 	                        localctx.operator = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
 	                    	this._errHandler.reportMatch(this);
 	                        this.consume();
 	                    }
-	                    this.state = 95;
+	                    this.state = 97;
 	                    this.expression(7);
 	                    break;
 
 	                case 3:
 	                    localctx = new BinaryExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 96;
+	                    this.state = 98;
 	                    if (!( this.precpred(this._ctx, 5))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 5)");
 	                    }
-	                    this.state = 97;
+	                    this.state = 99;
 	                    localctx.operator = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 1006632960) !== 0))) {
+	                    if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 2013265920) !== 0))) {
 	                        localctx.operator = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
 	                    	this._errHandler.reportMatch(this);
 	                        this.consume();
 	                    }
-	                    this.state = 98;
+	                    this.state = 100;
 	                    this.expression(6);
 	                    break;
 
 	                case 4:
 	                    localctx = new BinaryExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 99;
+	                    this.state = 101;
 	                    if (!( this.precpred(this._ctx, 4))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 4)");
 	                    }
-	                    this.state = 100;
+	                    this.state = 102;
 	                    localctx.operator = this._input.LT(1);
 	                    _la = this._input.LA(1);
-	                    if(!(_la===30 || _la===32)) {
+	                    if(!(_la===31 || _la===33)) {
 	                        localctx.operator = this._errHandler.recoverInline(this);
 	                    }
 	                    else {
 	                    	this._errHandler.reportMatch(this);
 	                        this.consume();
 	                    }
-	                    this.state = 101;
+	                    this.state = 103;
 	                    this.expression(5);
 	                    break;
 
 	                case 5:
 	                    localctx = new BinaryExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 102;
+	                    this.state = 104;
 	                    if (!( this.precpred(this._ctx, 3))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 3)");
 	                    }
-	                    this.state = 103;
+	                    this.state = 105;
 	                    localctx.operator = this.match(SoupParser.AND);
-	                    this.state = 104;
+	                    this.state = 106;
 	                    this.expression(4);
 	                    break;
 
 	                case 6:
 	                    localctx = new BinaryExpressionContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 105;
+	                    this.state = 107;
 	                    if (!( this.precpred(this._ctx, 2))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 2)");
 	                    }
-	                    this.state = 106;
+	                    this.state = 108;
 	                    localctx.operator = this.match(SoupParser.OR);
-	                    this.state = 107;
+	                    this.state = 109;
 	                    this.expression(3);
 	                    break;
 
 	                case 7:
 	                    localctx = new ConditionalExpContext(this, new ExpressionContext(this, _parentctx, _parentState));
 	                    this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_expression);
-	                    this.state = 108;
+	                    this.state = 110;
 	                    if (!( this.precpred(this._ctx, 1))) {
 	                        throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 1)");
 	                    }
-	                    this.state = 109;
-	                    this.match(SoupParser.T__1);
-	                    this.state = 110;
-	                    this.expression(0);
 	                    this.state = 111;
-	                    this.match(SoupParser.COLON);
+	                    this.match(SoupParser.T__1);
 	                    this.state = 112;
+	                    this.expression(0);
+	                    this.state = 113;
+	                    this.match(SoupParser.COLON);
+	                    this.state = 114;
 	                    this.expression(1);
 	                    break;
 
 	                } 
 	            }
-	            this.state = 118;
+	            this.state = 120;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,13,this._ctx);
 	        }
@@ -660,9 +672,9 @@ export default class SoupParser extends antlr4.Parser {
 	    var _la = 0;
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 119;
+	        this.state = 121;
 	        _la = this._input.LA(1);
-	        if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 2072) !== 0))) {
+	        if(!((((_la) & ~0x1f) === 0 && ((1 << _la) & 4120) !== 0))) {
 	        this._errHandler.recoverInline(this);
 	        }
 	        else {
@@ -696,36 +708,36 @@ export default class SoupParser extends antlr4.Parser {
 	    this.enterRecursionRule(localctx, 16, SoupParser.RULE_statement, _p);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 131;
+	        this.state = 133;
 	        this._errHandler.sync(this);
 	        switch(this._input.LA(1)) {
-	        case 10:
+	        case 11:
 	            localctx = new AssignStatementContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
 
-	            this.state = 122;
+	            this.state = 124;
 	            this.assign();
 	            break;
 	        case 5:
 	            localctx = new IfStatementContext(this, localctx);
 	            this._ctx = localctx;
 	            _prevctx = localctx;
-	            this.state = 123;
-	            this.match(SoupParser.IF);
-	            this.state = 124;
-	            this.expression(0);
 	            this.state = 125;
-	            this.match(SoupParser.THEN);
+	            this.match(SoupParser.IF);
 	            this.state = 126;
+	            this.expression(0);
+	            this.state = 127;
+	            this.match(SoupParser.THEN);
+	            this.state = 128;
 	            this.statement(0);
-	            this.state = 129;
+	            this.state = 131;
 	            this._errHandler.sync(this);
 	            var la_ = this._interp.adaptivePredict(this._input,14,this._ctx);
 	            if(la_===1) {
-	                this.state = 127;
+	                this.state = 129;
 	                this.match(SoupParser.ELSE);
-	                this.state = 128;
+	                this.state = 130;
 	                this.statement(0);
 
 	            }
@@ -734,7 +746,7 @@ export default class SoupParser extends antlr4.Parser {
 	            throw new antlr4.error.NoViableAltException(this);
 	        }
 	        this._ctx.stop = this._input.LT(-1);
-	        this.state = 138;
+	        this.state = 140;
 	        this._errHandler.sync(this);
 	        var _alt = this._interp.adaptivePredict(this._input,16,this._ctx)
 	        while(_alt!=2 && _alt!=antlr4.atn.ATN.INVALID_ALT_NUMBER) {
@@ -745,16 +757,16 @@ export default class SoupParser extends antlr4.Parser {
 	                _prevctx = localctx;
 	                localctx = new SequenceStatementContext(this, new StatementContext(this, _parentctx, _parentState));
 	                this.pushNewRecursionContext(localctx, _startState, SoupParser.RULE_statement);
-	                this.state = 133;
+	                this.state = 135;
 	                if (!( this.precpred(this._ctx, 1))) {
 	                    throw new antlr4.error.FailedPredicateException(this, "this.precpred(this._ctx, 1)");
 	                }
-	                this.state = 134;
+	                this.state = 136;
 	                this.match(SoupParser.SEMICOLON);
-	                this.state = 135;
+	                this.state = 137;
 	                this.statement(2); 
 	            }
-	            this.state = 140;
+	            this.state = 142;
 	            this._errHandler.sync(this);
 	            _alt = this._interp.adaptivePredict(this._input,16,this._ctx);
 	        }
@@ -780,11 +792,11 @@ export default class SoupParser extends antlr4.Parser {
 	    this.enterRule(localctx, 18, SoupParser.RULE_assign);
 	    try {
 	        this.enterOuterAlt(localctx, 1);
-	        this.state = 141;
-	        this.match(SoupParser.IDENTIFIER);
-	        this.state = 142;
-	        this.match(SoupParser.EQ);
 	        this.state = 143;
+	        this.match(SoupParser.IDENTIFIER);
+	        this.state = 144;
+	        this.match(SoupParser.EQ);
+	        this.state = 145;
 	        this.expression(0);
 	    } catch (re) {
 	    	if(re instanceof antlr4.error.RecognitionException) {
@@ -813,44 +825,45 @@ SoupParser.THEN = 6;
 SoupParser.ELSE = 7;
 SoupParser.VAR = 8;
 SoupParser.ENABLED = 9;
-SoupParser.IDENTIFIER = 10;
-SoupParser.NUMBER = 11;
-SoupParser.NATURAL = 12;
-SoupParser.NOT = 13;
-SoupParser.OR = 14;
-SoupParser.AND = 15;
-SoupParser.NOR = 16;
-SoupParser.NAND = 17;
-SoupParser.XOR = 18;
-SoupParser.PLUS = 19;
-SoupParser.MINUS = 20;
-SoupParser.SHL = 21;
-SoupParser.SHR = 22;
-SoupParser.MULT = 23;
-SoupParser.DIV = 24;
-SoupParser.MOD = 25;
-SoupParser.LE = 26;
-SoupParser.LT = 27;
-SoupParser.GE = 28;
-SoupParser.GT = 29;
-SoupParser.BEQ = 30;
-SoupParser.EQ = 31;
-SoupParser.NEQ = 32;
-SoupParser.IFF = 33;
-SoupParser.PIPE = 34;
-SoupParser.COMMA = 35;
-SoupParser.DOT = 36;
-SoupParser.SEMICOLON = 37;
-SoupParser.COLON = 38;
-SoupParser.TEQ = 39;
-SoupParser.LPAREN = 40;
-SoupParser.RPAREN = 41;
-SoupParser.LSQUARE = 42;
-SoupParser.RSQUARE = 43;
-SoupParser.PRIME = 44;
-SoupParser.LINE_COMMENT = 45;
-SoupParser.COMMENT = 46;
-SoupParser.WS = 47;
+SoupParser.INPUT = 10;
+SoupParser.IDENTIFIER = 11;
+SoupParser.NUMBER = 12;
+SoupParser.NATURAL = 13;
+SoupParser.NOT = 14;
+SoupParser.OR = 15;
+SoupParser.AND = 16;
+SoupParser.NOR = 17;
+SoupParser.NAND = 18;
+SoupParser.XOR = 19;
+SoupParser.PLUS = 20;
+SoupParser.MINUS = 21;
+SoupParser.SHL = 22;
+SoupParser.SHR = 23;
+SoupParser.MULT = 24;
+SoupParser.DIV = 25;
+SoupParser.MOD = 26;
+SoupParser.LE = 27;
+SoupParser.LT = 28;
+SoupParser.GE = 29;
+SoupParser.GT = 30;
+SoupParser.BEQ = 31;
+SoupParser.EQ = 32;
+SoupParser.NEQ = 33;
+SoupParser.IFF = 34;
+SoupParser.PIPE = 35;
+SoupParser.COMMA = 36;
+SoupParser.DOT = 37;
+SoupParser.SEMICOLON = 38;
+SoupParser.COLON = 39;
+SoupParser.TEQ = 40;
+SoupParser.LPAREN = 41;
+SoupParser.RPAREN = 42;
+SoupParser.LSQUARE = 43;
+SoupParser.RSQUARE = 44;
+SoupParser.PRIME = 45;
+SoupParser.LINE_COMMENT = 46;
+SoupParser.COMMENT = 47;
+SoupParser.WS = 48;
 
 SoupParser.RULE_soup = 0;
 SoupParser.RULE_variables = 1;
@@ -1288,6 +1301,38 @@ class ConditionalExpContext extends ExpressionContext {
 }
 
 SoupParser.ConditionalExpContext = ConditionalExpContext;
+
+class InputReferenceExpContext extends ExpressionContext {
+
+    constructor(parser, ctx) {
+        super(parser);
+        super.copyFrom(ctx);
+    }
+
+	INPUT() {
+	    return this.getToken(SoupParser.INPUT, 0);
+	};
+
+	expression() {
+	    return this.getTypedRuleContext(ExpressionContext,0);
+	};
+
+	enterRule(listener) {
+	    if(listener instanceof SoupListener ) {
+	        listener.enterInputReferenceExp(this);
+		}
+	}
+
+	exitRule(listener) {
+	    if(listener instanceof SoupListener ) {
+	        listener.exitInputReferenceExp(this);
+		}
+	}
+
+
+}
+
+SoupParser.InputReferenceExpContext = InputReferenceExpContext;
 
 class ReferenceExpContext extends ExpressionContext {
 

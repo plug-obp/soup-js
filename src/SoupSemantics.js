@@ -290,7 +290,7 @@ export function evaluateStepString(soupExpressionString, stepEnvironment) {
     return evaluateStep(syntaxModel, stepEnvironment);
 }
 
-class StepExpressionInterpreter extends ExpressionInterpreter {
+export class StepExpressionInterpreter extends ExpressionInterpreter {
     visitReference(node, step) {
         const {s:source, a:piece, t:target} = step;
         //if  the reference is "deadlock"

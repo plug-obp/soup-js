@@ -86,6 +86,15 @@ export default class SoupListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by SoupParser#InputReferenceExp.
+	enterInputReferenceExp(ctx) {
+	}
+
+	// Exit a parse tree produced by SoupParser#InputReferenceExp.
+	exitInputReferenceExp(ctx) {
+	}
+
+
 	// Enter a parse tree produced by SoupParser#ReferenceExp.
 	enterReferenceExp(ctx) {
 	}

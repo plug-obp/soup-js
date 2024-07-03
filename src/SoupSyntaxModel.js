@@ -449,6 +449,20 @@ export class EnabledExpression extends Expression {
     }
 }
 
+export class InputReference extends Expression {
+    expression;
+    constructor(expression, positition = emptyPosition) {
+        super(positition);
+        this.expression = expression;
+    }
+    accept(visitor, input) {
+        return visitor.visitInputReference(this, input);
+    }
+    equals(other) {
+        return this === other || (other instanceof InputReference && this.expression.equals(other.expression));
+    }
+}
+
 export class Visitor {
     visitSyntaxTreeElement(element, input) { }
     visitExpression(element, input) {
@@ -554,6 +568,9 @@ export class Visitor {
         this.visitExpression(element, input);
     }
     visitEnabledExpression(element, input) {
+        this.visitExpression(element, input);
+    }
+    visitInputReference(element, input) {
         this.visitExpression(element, input);
     }
 }
