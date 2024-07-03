@@ -69,3 +69,6 @@ export class SoupDependentSemantics {
         return [piece.effect.accept(this.statementInterpreter, extendedEnvironment)];
     }
 }
+
+// a step of the dependent semantics is:
+// {input, source, action, target}

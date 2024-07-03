@@ -1,0 +1,2 @@
+var pc = true;
+| fail: [pc ∧ @deadlock] / pc = false
