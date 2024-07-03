@@ -1,2 +1,3 @@
 var status = true;
+| ok: [status]
 | fail: [status ∧ @deadlock] / status = false
