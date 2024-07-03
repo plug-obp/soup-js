@@ -90,6 +90,25 @@ test('sequence statement', () => {
     ));
 });
 
+test('read dependent assignment', () => {
+  expect(readStatement('x = (@x) + 23')).toEqual(
+    new stx.Assignment(
+      rX, 
+      new stx.Addition('+',
+        new stx.InputReference(rX, expect.anything()), 
+        number23, expect.anything()), expect.anything()));
+});
+
+test('dependent piece', () => {
+  expect(readPiece('[ p ] / x = (@x) + 23')).toEqual(
+    new stx.AnonymousPiece(
+      rP,
+      new stx.Assignment(rX, new stx.Addition('+',
+        new stx.InputReference(rX, expect.anything()), 
+        number23, expect.anything()), expect.anything()), expect.anything()
+    ));
+});
+
 test('anonymous piece', () => {
   expect(readPiece('[ p ] / x=23')).toEqual(
     new stx.AnonymousPiece(

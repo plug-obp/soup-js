@@ -1,4 +1,4 @@
-import { DependentExpressionInterpreter, DependentRuntimeEnvironment } from "./SoupDependentSemantics.js";
+import { DependentExpressionInterpreter, DependentRuntimeEnvironment, SoupDependentSemantics } from "./SoupDependentSemantics.js";
 import { readExpression, readSoup } from "./SoupReader.js";
 import { SoupSemantics, StepExpressionInterpreter, RuntimeEnvironment } from "./SoupSemantics.js";
 import { InputReference, NumberLiteral } from "./SoupSyntaxModel.js";
@@ -24,7 +24,7 @@ test('dependent expression eval', () => {
         const expression = readExpression(code);
         const evaluator = new DependentExpressionInterpreter(stepEvaluator);
         const environment = new RuntimeEnvironment();
-        const extendedEnvironment = new DependentRuntimeEnvironment(new Map([["@",step]]), environment);
+        const extendedEnvironment = new DependentRuntimeEnvironment(step, environment);
         const value = expression.accept(evaluator, extendedEnvironment);
         return value;
     }
@@ -47,7 +47,7 @@ test('mixed eval', () => {
         const evaluator = new DependentExpressionInterpreter(stepEvaluator);
         const environment = new RuntimeEnvironment();
         environment.define('x', 1);
-        const extendedEnvironment = new DependentRuntimeEnvironment(new Map([["@",step]]), environment);
+        const extendedEnvironment = new DependentRuntimeEnvironment(step, environment);
         const value = expression.accept(evaluator, extendedEnvironment);
         return value;
     }
@@ -58,4 +58,18 @@ test('mixed eval', () => {
     expect(deval('@p:no ∨ x == 1')).toBe(true);
     expect(deval('@(x==3)')).toBe(false);
     expect(deval('(@x\') == x + 2')).toBe(true);
+});
+
+test('dependent semantics', () => {
+    const code = `
+        var x = 0;
+        | piece: [x==0 ∧ @x' == 3]/ x = @x' + 1;
+    `;
+    const soup = readSoup(code);
+    const semantics = new SoupDependentSemantics(soup);
+    const {step, _} = base();
+    const s = semantics.initial()[0];
+    const a = semantics.actions(step, s)[0];
+    const t = semantics.execute(a, step, s)[0];
+    expect(t.lookup('x')).toBe(4);
 });

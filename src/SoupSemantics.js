@@ -58,7 +58,7 @@ export class RuntimeEnvironment {
     }
 }
 
-function ensureBoolean(operator, value) {
+export function ensureBoolean(operator, value) {
     if (typeof value !== 'boolean') {
         throw new Error(`${operator} expects a boolean, got '${value}'.`);
     }
