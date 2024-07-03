@@ -1,2 +1,3 @@
 var status = true;
+| ok: [status]
 | fail: [status ∧ ((@a)==2) ∧ ((@b)==2)] / status = false
