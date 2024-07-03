@@ -1,2 +1,2 @@
-var pc = true;
-| fail: [pc ∧ @a==2 ∧ @b==2] / pc = false
+var status = true;
+| fail: [status ∧ ((@a)==2) ∧ ((@b)==2)] / status = false

@@ -1,2 +1,2 @@
-var pc = true;
-| fail: [pc ∧ @deadlock] / pc = false
+var status = true;
+| fail: [status ∧ @deadlock] / status = false
