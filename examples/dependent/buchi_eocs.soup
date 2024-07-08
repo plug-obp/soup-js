@@ -1,4 +1,5 @@
 //at least one gets to the critical section at some point
+//this should be interpreted as a buchi automaton
 var status = true;
 | fail: [status ∧ !((@a)==2) ∧ !((@b)==2)] / status = false
 | ok: [status]
