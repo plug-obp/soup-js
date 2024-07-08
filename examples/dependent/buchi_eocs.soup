@@ -1,0 +1,6 @@
+//at least one gets to the critical section at some point
+var status = true;
+| fail: [status ∧ !((@a)==2) ∧ !((@b)==2)] / status = false
+| ok: [status]
+| acc: [!status ∧ !((@a)==2) ∧ !((@b)==2)]
+
