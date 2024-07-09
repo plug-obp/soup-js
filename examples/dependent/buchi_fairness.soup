@@ -1,0 +1,9 @@
+//if one wants in it eventually gets in
+//this should be interpreted as a buchi automaton
+var status = true; pc = 0
+| aWantsIn  : [pc == 0 ∧ ((@a)==1) ∧ !((@a)==2)] / pc = 1; status = false
+| aNotIn    : [pc == 1 ∧             !((@a)==2)]
+| bWantsIn  : [pc == 0 ∧ ((@b)==1) ∧ !((@b)==2)] / pc = 2; status = false
+| bNotIn    : [pc == 2 ∧             !((@b)==2)]
+| ok        : [pc == 0]
+

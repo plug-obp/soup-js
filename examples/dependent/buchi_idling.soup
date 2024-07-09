@@ -1,0 +1,27 @@
+//if one wants in it eventually gets in
+//this should be interpreted as a buchi automaton
+var status = true; pc = 0
+| z2z       : [     pc == 0 
+                ∧ (       (@a==1  ∧   @b==1) 
+                    ∨     (@a==1  ∧ !(@b==2)) 
+                    ∨   (!(@a==2) ∧  (@b==1)) 
+                    ∨   (!(@a==2) ∧ !(@b==2))
+                )
+            ]
+| z2o       : [     pc == 0 
+                ∧ (   (!(@a==1) ∧ (@a==2)) 
+                    ∨ (!(@b==1) ∧ (@b==2))
+                )
+            ] / pc = 1; status = false
+| o2o       : [pc == 1]
+| o2d       : [     pc == 0 
+                ∧ (((@b==1) ∨ !(@b==2)) ∧ !(@a==1) ∧ !(@a==2))
+            ] / pc = 2
+| d2d       : [pc == 2 ∧ !(@a==2)]
+| d2o       : [pc == 2 ∧  (@a==2)] / pc = 1; status = false
+| o2t       : [     pc == 0 
+                ∧ (((@a==1) ∨ !(@a==2)) ∧ !(@b==1) ∧ !(@b==2))
+            ] / pc = 3
+| t2t       : [pc == 3 ∧ !(@b==2)]
+| t2o       : [pc == 3 ∧  (@b==2)]
+
